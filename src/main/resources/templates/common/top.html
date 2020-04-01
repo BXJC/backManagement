@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="shortcut icon" href="favicon.ico" type="../image/x-icon">
     <link rel="icon" href="favicon.ico" type="../image/x-icon">
+    <script src="../js/autoComplete.js" th:inline="javascript"></script>
 
 </head>
 <body>
@@ -18,7 +19,7 @@
     </div>
 
     <nav id="header-nav-wrap">
-        <form action="search" method="post" name="autoCompleteForm" class="search-container">
+        <form action="/catalog/searchProducts" method="post" name="autoCompleteForm" class="search-container">
             <input type="text" style="float: right" name="keyword" id="keyword" list="products" size="14" onkeyup="completeItemList();"/>
             <datalist id="products"></datalist>
 
@@ -38,14 +39,14 @@
 
             <c:if test="${sessionScope.account == null}">
                 <li>
-                    <a href="viewAccount?msg=SignOn">SignOn</a>
+                    <a href="/account/signOnForm">SignOn</a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.account!=null}">
-                <li><a class="smoothscroll" href="signOut">SignOut</a></li>
+                <li><a class="smoothscroll" href="/account/signOut">SignOut</a></li>
             </c:if>
             <c:if test="${sessionScope.account!=null}">
-                <li><a class="smoothscroll"  href="viewAccount?msg=Edit">MyAccount</li>
+                <li><a class="smoothscroll"  href="/account/updataUserInfoForm">MyAccount</li>
             </c:if>
             <li><a href="help" class="smoothscroll" >Help</a> </li>
 

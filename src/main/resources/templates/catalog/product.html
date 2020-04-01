@@ -25,46 +25,45 @@
                 <div class="plan-block primary" data-aos="fade-up">
 
                     <div class="plan-top-part">
-                        <p class="plan-block-price">${sessionScope.product.name}</p>
+                        <p class="plan-block-price" th:text="${product.name}">productname</p>
                     </div>
-
                     <div class="plan-bottom-part">
+
+
                         <table>
                             <tr>
                                 <th>Item ID</th>
                                 <th>Product ID</th>
                                 <th>Description</th>
                                 <th>List Price</th>
-                                <th>&nbsp;${sessionScope.qty}</th>
+       <!--                         <th th:text="${}">&nbsp;${sessionScope.qty}</th>-->
                             </tr>
-                            <c:forEach var="item" items="${sessionScope.itemList}">
-                                <tr>
+
+                            <tr th:each="item:${itemList}">
                                     <td>
-                                        <a href="viewItem?itemId=${item.itemId}"><p2>${item.itemId}</p2></a>
+                                        <a href="viewItem?itemId=${item.itemId}"><p2 th:text="${item.itemId}">itemId</p2></a>
                                     </td>
                                     <td>
-                                        <p3>${item.product.productId}</p3>
+                                        <p3 th:text="${item.product.productId}">productId</p3>
                                     </td>
                                     <td>
-                                        <p3>${item.attribute1} ${item.attribute2} ${item.attribute3}
-                                            ${item.attribute4} ${item.attribute5} ${sessionScope.product.name}
+                                        <p3 th:text="${item.attribute1} ">
+                                            itemInfo
                                         </p3>
                                     </td>
+
+
                                     <td>
-                                        <p3><fmt:formatNumber value="${item.listPrice}"
-                                                              pattern="$#,##0.00" />
-                                        </p3>
+                                        <p3 th:text="'$'+${#numbers.formatDecimal(item.listPrice,1,2)}">listpeice</p3>
+
                                     </td>
                                     <td>
-                                        <c:if test="${sessionScope.account !=null}"><a class="button button-primary" href="addItemToCart?workingItemId=${item.itemId}">Add to Cart</a></c:if>
-                                        <c:if test="${sessionScope.account ==null}"><a class="button button-primary" href="viewAccount?msg=SignOn">Add to Cart</a></c:if>
+                                        <a th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
                                     </td>
+
+
                                 </tr>
-                            </c:forEach>
-                            <tr>
-                                <td>
-                                </td>
-                            </tr>
+
                         </table>
                     </div>
 
@@ -72,8 +71,8 @@
                     <!-- end home-social-list -->
 
                     <div class="home-scrolldown">
-                        <a href="viewCategory?categoryId=${sessionScope.product.categoryId}" class="scroll-icon smoothscroll">
-                            <span>Return to ${sessionScope.product.categoryId}-></span>
+                        <a th:href="@{/catalog/viewCategory(categoryId=${product.categoryId})}" class="scroll-icon smoothscroll">
+                            <span th:text="'Return to'+ ${product.categoryId}+'->'">Return to ${sessionScope.product.categoryId}-></span>
                         </a>
                     </div>
                 </div>
