@@ -54,6 +54,7 @@ public class AccountController {
         {
             accountService.updateAccount (account);
             msg="修改成功";
+            model.addAttribute ("account",account);
             model.addAttribute ("msg",msg);
             return "account/editAccount";
 
@@ -75,7 +76,7 @@ public class AccountController {
     }
     @PostMapping("/newAccount")
     public String newAccount(String username,String password,String repeatpassword,Model model){
-        Account account=null;
+        Account account=new Account ();
         String msg=null;
 
         if(accountService.getAccount (username)!=null) {
