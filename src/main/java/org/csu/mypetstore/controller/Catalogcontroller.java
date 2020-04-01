@@ -1,6 +1,5 @@
 package org.csu.mypetstore.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import org.csu.mypetstore.domain.Category;
 import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
@@ -45,7 +44,7 @@ public class Catalogcontroller {
 
     @GetMapping(value = "/autoComplete", produces="application/XML;charset=UTF-8" )
     @ResponseBody
-    public List<Product> autoComlete(String keyword){
+    public List<Product> autoComplete(String keyword){
         List<Product> productList=catalogService.searchProductList (keyword);
         System.out.println ("发送请求成功");
         return productList;
