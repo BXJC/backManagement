@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/Top">
+
+</div>
+
+<section class="pricing" >
+    <div class="row pricing-content">
+        <div class="col-four pricing-intro">
+            <h1 class="intro-header" data-aos="fade-up">Sign In</h1>
+            <form action="/account/signOn" method="post">
+                <font size="3" color="red" th:text="msg"></font>
+                <table>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="username" value="a" autocomplete="off"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" value="a" /></td>
+                    </tr>
+<!--                    <tr>
+                        <td>VerifyCode:</td>
+                        <td><input name="vcode" type="text" class="input02"id="vcode">
+                            <img src ="check" align="absmiddle" title="change" onClick="this.src=this.src+'?'"/></td>
+                    </tr>-->
+                </table>
+
+                <input type="submit" class="button button-primary large"  value="Login" />
+            </form>
+            Need a user name and password?
+            <a href="/account/newAccountForm">Register Now!</a>
+        </div>
+    </div>
+</section>
+
+
+
+<div th:replace="common/Bottom">
+
+</div>
+</body>
+</html>
+
