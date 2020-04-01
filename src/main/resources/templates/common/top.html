@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="../image/x-icon">
+    <link rel="icon" href="favicon.ico" type="../image/x-icon">
+
+</head>
+<body>
+<header th:fragment="header" class="header">
+
+    <div class="header-logo">
+        <a href="main">PETSTORE</a>
+    </div>
+
+    <nav id="header-nav-wrap">
+        <form action="search" method="post" name="autoCompleteForm" class="search-container">
+            <input type="text" style="float: right" name="keyword" id="keyword" list="products" size="14" onkeyup="completeItemList();"/>
+            <datalist id="products"></datalist>
+
+            <input type="submit" class="search button button-primary cta "  name="searchProducts" value="Search"  style="float:left"/>
+        </form>
+
+        <ul class="header-main-nav">
+            <li class="current"><a class="smoothscroll"  href="main" title="home">Home</a></li>
+
+            <c:if test="${sessionScope.account==null}">
+                <li><a class="smoothscroll"  href="viewAccount?msg=SignOn" title="about">My Cart</a></li>
+            </c:if>
+
+            <c:if test="${sessionScope.account!=null}">
+                <li><a class="smoothscroll"  href="viewCart" title="about">My Cart</a></li>
+            </c:if>
+
+            <c:if test="${sessionScope.account == null}">
+                <li>
+                    <a href="viewAccount?msg=SignOn">SignOn</a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.account!=null}">
+                <li><a class="smoothscroll" href="signOut">SignOut</a></li>
+            </c:if>
+            <c:if test="${sessionScope.account!=null}">
+                <li><a class="smoothscroll"  href="viewAccount?msg=Edit">MyAccount</li>
+            </c:if>
+            <li><a href="help" class="smoothscroll" >Help</a> </li>
+
+        </ul>
+
+    </nav>
+    <ul class="home-social-list">
+        <li style="display: inline">
+            <a href="viewCategory?categoryId=FISH"><p6>fish</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="viewCategory?categoryId=DOGS"><p6>dogs</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="viewCategory?categoryId=REPTILES"><p6>reptiles</p6></a>
+        </li >
+        <li style="display: inline">
+            <a href="viewCategory?categoryId=CATS"><p6>cats</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="viewCategory?categoryId=BIRDS"><p6>birds</p6></a>
+        </li>
+
+    </ul>
+
+</header>
+
+
+</body>
+</html>
