@@ -24,11 +24,11 @@
                     <th>Total Price</th>
                 </tr>
 
-                    <tr th:if="${sessionScope.orderList} == null">
+                    <tr th:if="${session.orderList} == null">
                         <td colspan="3"><b>Your orderList is empty.</b></td>
                     </tr>
 
-                    <tr th:each="order:${session.orderlist}">
+                    <tr th:each="order:${session.orderList}">
                         <td>
                             <a th:href="@{/order/viewOrder(orderId=${order.orderId},msg="view")">${order.orderId}</a>
                         </td>
