@@ -5,31 +5,44 @@
     <title>Title</title>
 </head>
 <body>
+
 <div th:replace="common/Top">
 </div>
 
 <div id="Catalog">
+    <section class="pricing" style="height: 900px">
 
-    <table>
-        <tr>
-            <th>&nbsp;</th>
-            <th>Product ID</th>
-            <th>Name</th>
-        </tr>
+        <div class="col-ten pricing-table">
 
-        <tr th:each="product:${productList}">
-            <td>
-                <a href="#" th:text="${product.description}">productdescription</a>
-            </td>
-            <td>
-                <b th:text="${product.productId}">productId</b>
-            </td>
-            <td th:text="${product.name}">productname
-            </td>
-        </tr>
+            <div class="col-eleven plan-wrap" >
+                <div class="plan-block " data-aos="fade-up">
 
-    </table>
+                    <div class="plan-bottom-part">
+                        <table>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Product ID</th>
+                                <th>Name</th>
+                            </tr>
 
+                            <tr th:each="product:${productList}">
+                                <td>
+                                    <a href="#" th:text="${product.description}">productdescription</a>
+                                </td>
+                                <td>
+                                    <b th:text="${product.productId}">productId</b>
+                                </td>
+                                <td th:text="${product.name}">productname
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <div th:replace="common/Bottom">

@@ -58,5 +58,16 @@ public class Catalogcontroller {
         return "catalog/searchProducts";
     }
 
+
+    @GetMapping("viewItem")
+    public String viewItem(String itemId, Model model){
+        Item item = catalogService.getItem(itemId);
+        Product product = item.getProduct();
+
+        model.addAttribute("item",item);
+        model.addAttribute("product",product);
+        return "catalog/item";
+    }
+
 }
 

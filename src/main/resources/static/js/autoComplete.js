@@ -32,29 +32,17 @@ function sendRequest(url) {
 function processResponse() {
     if (xmlHttpRequest.readyState == 4) {
         if (xmlHttpRequest.status == 200) {
+            var responseList= JSON.parse(xmlHttpRequest.responseText);
 
-            // var responseJson= JSON.parse(xmlHttpRequest.responseText);
-            // var responseJson2= JSON.parse(xmlHttpRequest.responseText+"'");
-                var responseJson=xmlHttpRequest.responseText;
-
-
-            console.log(responseJson[0]);
-            // console.log(xmlHttpRequest.responseText);
-
-            document.write(responseJson);
-            // document.write(responseJson2);
-
-            /* var responseList = xmlHttpRequest.responseXML.getElementsByTagName("Item");*/
             var productList = document.getElementById("products");
             productList.innerHTML = "";
             var option = null;
             for(var i = 0 ; i < responseList.length; i++){
                 option = document.createElement("option");
-                /*    document.write(xmlHttpRequest.responseText);*/
 
-                console.log(responseList[i]["name"]);
-                option.appendChild(document.createTextNode(responseList[i]["name"]));
-                option.setAttribute("value",responseList[i]["name"]);
+                console.log(responseList[i].name);
+                option.appendChild(document.createTextNode(responseList[i].name));
+                option.setAttribute("value",responseList[i].name);
                 productList.appendChild(option);
             }
         }

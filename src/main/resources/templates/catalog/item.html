@@ -1,0 +1,97 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/Top">
+
+</div>
+
+<section class="pricing" style="height: 900px">
+
+    <div class="col-ten pricing-table">
+
+        <div class="col-eleven plan-wrap" >
+            <div class="plan-block " data-aos="fade-up">
+
+                <div class="plan-bottom-part">
+                    <table class="two-line">
+                        <tr>
+                            <td th:text=" ${product.description}"></td>
+                        </tr>
+                        <tr>
+                            <td><b th:text=" ${ item.itemId}"</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>
+                               <b th:text=" ${item.attribute1}"/>
+                                <b th:text=" ${ item.attribute2}"/>
+                                <b th:text=" ${ item.attribute3}"/>
+                                <b th:text="${ item.attribute4}"/>
+                                <b th:text="${ item.attribute5}"/>
+                                <b th:text="${product.name}"/>
+                            </b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>ProductName</span>
+                            </td>
+                            <td th:text="${product.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Stock</span>
+                            </td>
+                            <td>
+                                <p th:if="${item.quantity} <= 0" th:text="Back ordered."/>
+                                <p th:if="${item.quantity} > 0" th:text="${ item.quantity}+'is in stock'"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>ListPrice</span>
+                            </td>
+                            <td>
+                                <p th:text="'$'+${#numbers.formatDecimal(item.listPrice,1,2)}">listpeice</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a th:if="${session.account} != null" th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
+
+                                <a th:if="${session.account} == null" href="/account/signOnForm">Add to Cart</a>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+                <div class="home-scrolldown">
+                    <a href="viewProduct?productId=${productId}" class="scroll-icon smoothscroll">
+                        <span th:text="'Return to'+ ${product.productId}"></span>
+                        <i class="icon-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div> <!-- end plan-wrap -->
+
+    </div>
+    <!-- end pricing-table -->
+
+    <!-- end pricing-content -->
+</section> <!-- end pricing -->
+
+
+<div th:replace="common/Bottom">
+
+</div>
+</body>
+</html>
+
