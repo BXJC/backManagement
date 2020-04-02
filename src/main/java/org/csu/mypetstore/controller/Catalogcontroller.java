@@ -1,9 +1,11 @@
 package org.csu.mypetstore.controller;
 
+import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Category;
 import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.CatalogService;
+import org.csu.mypetstore.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/catalog")
+@SessionAttributes({"account"})
 public class Catalogcontroller {
 
     @Autowired
     CatalogService catalogService;
+
+    @Autowired
+    LogService logService;
 
     @GetMapping("/view")
     public String view(){
@@ -60,9 +66,11 @@ public class Catalogcontroller {
 
 
     @GetMapping("viewItem")
-    public String viewItem(String itemId, Model model){
+    public String viewItem(@Autowired Account account, String itemId, Model model){
         Item item = catalogService.getItem(itemId);
         Product product = item.getProduct();
+
+        logService.insertBrowseLog (account,itemId);
 
         model.addAttribute("item",item);
         model.addAttribute("product",product);

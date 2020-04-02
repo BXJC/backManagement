@@ -5,6 +5,7 @@ import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
+import org.csu.mypetstore.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class CartController {
     @Autowired
     CatalogService catalogService;
 
+    @Autowired
+    LogService logService;
+
     @GetMapping("/viewCart")
     public String viewCart(@SessionAttribute("account") Account account, Model model){
         Cart cart=cartService.getCart (account.getUsername ());
@@ -39,6 +43,7 @@ public class CartController {
             cart = new Cart ();
         }
 
+       logService.insertAddLog (account,itemId);
         if(cart.containsItemId (itemId)){
             cart.incrementQuantityByItemId (itemId);
             cartService.updateCart (cart,account);
