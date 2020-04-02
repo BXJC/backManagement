@@ -27,13 +27,14 @@
                     <th><b>Total Cost</b></th>
                     <th>&nbsp;</th>
                 </tr>
-                <tr th:if="${cart.numberOfItems} eq 0">
+
+                <tr th:if="${session.cart.numberOfItems} eq 0">
                         <td colspan="8"><b>Your cart is empty.</b></td>
                 </tr>
 
-                <tr th:each="cartItem:${cart.getAllCartItems()}">
+                <tr th:each="cartItem:${session.cart.getAllCartItems()}">
                         <td>
-                            <a href="viewItem?itemId=${cartItem.item.itemId}" th:text="${cartItem.itemId}">itemID</a>
+                            <a href="viewItem?itemId=${cartItem.item.itemId}" th:text="${cartItem.item.itemId}">itemID</a>
                         </td>
                         <td>
                             <p th:text="${cartItem.item.product.productId}"></p>
@@ -62,7 +63,7 @@
                             <p3 th:text="'$'+${#numbers.formatDecimal(cartItem.total,1,2)}">itemTotal</p3>
 
                         <td>
-                            <a href="removeItemFromCart?workingItemId=${cartItem.item.itemId}" class="Button">Remove</a>
+                            <a th:href="@{removeItemFromCart(itemId=${cartItem.item.itemId})}" class="Button">Remove</a>
                         </td>
                     </tr>
                 </c:forEach>

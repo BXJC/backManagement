@@ -1,5 +1,6 @@
 package org.csu.mypetstore.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.domain.Item;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/cart")
-@SessionAttributes({"cart"})
+@SessionAttributes({"cart","account"})
 public class CartController {
 
     @Autowired
@@ -27,15 +28,14 @@ public class CartController {
     CatalogService catalogService;
 
     @GetMapping("/viewCart")
-    public String viewCart(String username,Model model){
-        Cart cart=cartService.getCart (username);
+    public String viewCart(@SessionAttribute("account") Account account, Model model){
+        Cart cart=cartService.getCart (account.getUsername ());
         model.addAttribute ("cart",cart);
         return "cart/viewCart";
     }
 
     @GetMapping("/addToCart")
-    public String addToCart(String itemId,@SessionAttribute("account") Account account,@SessionAttribute("cart")Cart cart){
-
+    public String addToCart(String itemId,@SessionAttribute("account") Account account,@SessionAttribute("cart")Cart cart,Model model){
         if(cart == null){
             cart = new Cart ();
         }
@@ -50,17 +50,20 @@ public class CartController {
             cart.addItem (item,isInStock);
             cartService.addItemToCart (account,cart.getCartItemList ().get (cart.getNumberOfItems ()-1));
         }
+        model.addAttribute ("cart",cart);
         return "cart/viewCart";
     }
 
     @GetMapping("/removeItemFromCart")
-    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute("account") Account account,Model model){
+    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute("account") Account account, Model model){
         Item item = cart.removeItemById (itemId);
         cartService.removeItemFromCart (account,itemId);
 
         if(item == null){
-            model.addAttribute ("msg","Attempted to remove null CartItem from Cart.");
+            model.addAttribute ("msg","Attempted to remove null CartItem from Cart");
         }
+
+        model.addAttribute ("cart",cart);
         return "cart/viewCart";
     }
 

@@ -23,13 +23,13 @@ public class CartService {
     {
         Cart cart=new Cart ();
         List<CartItem> cartItemList=cartMapper.getCartItemList (username);
+
         Item item=new Item ();
 
         for(int i=0;i<cartItemList.size ();i++){
             item=catalogService.getItem (cartItemList.get (i).getItemId ());
             cartItemList.get(i).setItem (item);
         }
-
         cart.setCartItemList (cartItemList);
         return cart;
     }
