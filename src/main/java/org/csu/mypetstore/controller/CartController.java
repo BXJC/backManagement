@@ -27,15 +27,13 @@ public class CartController {
     CatalogService catalogService;
 
     @GetMapping("/viewCart")
-    public String viewCart(String username,Model model){
+    public String viewCart(String username){
         Cart cart=cartService.getCart (username);
-        model.addAttribute ("cart",cart);
         return "cart/viewCart";
     }
 
     @GetMapping("/addToCart")
     public String addToCart(String itemId,@SessionAttribute("account") Account account,@SessionAttribute("cart")Cart cart){
-
         if(cart == null){
             cart = new Cart ();
         }
@@ -54,14 +52,12 @@ public class CartController {
     }
 
     @GetMapping("/removeItemFromCart")
-    public String removeItemFromCart(String itemId,HttpSession session,Model model){
-        Cart cart = (Cart) session.getAttribute ("cart");
-        Account account = (Account) session.getAttribute ("account");
+    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute Account account, Model model){
         Item item = cart.removeItemById (itemId);
         cartService.removeItemFromCart (account,itemId);
 
         if(item == null){
-            session.setAttribute ("msg","Attempted to remove null CartItem from Cart.");
+            model.addAttribute ("msg","Attempted to remove null CartItem from Cart");
         }
         return "cart/viewCart";
     }
