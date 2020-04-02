@@ -13,7 +13,7 @@
     <div class="row pricing-content">
 
         <div class="col-four pricing-intro">
-            <form action="confirmOrder" method="post" name="newOrderForm">
+            <form action="/order/confirmOrder" method="post" name="newOrderForm" th:object="${session.order}">
                 <table>
                     <tr>
                         <th colspan=2>Payment Details</th>
@@ -22,24 +22,22 @@
                         <td>Card Type:</td>
                         <td>
                             <select name="cardType">
-                                <c:forEach var="creditCardType" items="${sessionScope.cardList}">
-                                    <option>
-                                        ${creditCardType}
+                                    <option th:each="creditCardType:${session.cardList}" >
+                                        creditCardType
                                     </option>
-                                </c:forEach>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Card Number:</td>
                         <td>
-                            <input type="text" name="order.creditCard" value="${sessionScope.order.creditCard}"/>* Use a fake number!
+                            <input type="text"  th:field="*{creditCard}"/>* Use a fake number!
                         </td>
                     </tr>
                     <tr>
                         <td>Expiry Date (MM/YYYY):</td>
                         <td>
-                            <input type="text" name="order.expiryDate" disabled="disabled" value="${sessionScope.order.expiryDate}"/>
+                            <input type="text" disabled="disabled" th:field="*{expiryDate}"/>
                         </td>
                     </tr>
                     <tr>
@@ -49,55 +47,55 @@
                     <tr>
                         <td>First name:</td>
                         <td>
-                            <input type="text" name="order.billToFirstName" value="${sessionScope.order.billToFirstName}"/>
+                            <input type="text"  th:field="*{billToFirstName}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Last name:</td>
                         <td>
-                            <input type="text" name="order.billToLastName" value="${sessionScope.order.billToLastName}"/>
+                            <input type="text"  th:field="*{billToLastName}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Address 1:</td>
                         <td>
-                            <input type="text" size="40" name="order.billAddress1" value="${sessionScope.order.billAddress1}"/>
+                            <input type="text" size="40"  th:field="*{billAddress1}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Address 2:</td>
                         <td>
-                            <input type="text" size="40" name="order.billAddress2" value="${sessionScope.order.billAddress2}"/>
+                            <input type="text" size="40" th:field="*{billAddress2}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>City:</td>
                         <td>
-                            <input type="text" name="order.billCity" value="${sessionScope.order.billCity}"/>
+                            <input type="text"  th:field="*{billCity}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>State:</td>
                         <td>
-                            <input type="text" size="4" name="order.billState" value="${sessionScope.order.billState}"/>
+                            <input type="text" size="4" th:field="*{billState}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Zip:</td>
                         <td>
-                            <input type="text" size="10" name="order.billZip" value="${sessionScope.order.billZip}"/>
+                            <input type="text" size="10" th:field="*{billZip}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Country:</td>
                         <td>
-                            <input type="text" size="15" name="order.billCountry" value="${sessionScope.order.billCountry}"/>
+                            <input type="text" size="15"  th:field="*{billCountry}"/>
                         </td>
                     </tr>
 
                     <tr>
                         <td colspan=2>
-                            <input type="checkbox" name="shippingAddressRequired" id="ToShipping" onclick="dynamicShipping(this);"/>
+                            <input type="checkbox"  id="ToShipping" onclick="dynamicShipping(this);"/>
                             Ship to different address...
                         </td>
                     </tr>
