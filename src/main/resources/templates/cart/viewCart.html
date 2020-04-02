@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/Top">
+
+</div>
+
+<section class="pricing" >
+    <div class="row pricing-content " >
+
+        <h1 >Shopping Cart</h1>
+        <form action="#" method="post">
+            <table class="cart-line">
+                <tr>
+                    <th><b>Item ID</b></th>
+                    <th><b>Product ID</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>In Stock?</b></th>
+                    <th><b>Quantity</b></th>
+                    <th><b>List Price</b></th>
+                    <th><b>Total Cost</b></th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr th:if="${cart.numberOfItems} er 0">
+                        <td colspan="8"><b>Your cart is empty.</b></td>
+                </tr>
+
+                <tr th:each="cartItem:${cart.getAllCartItems()}">
+                        <td>
+                            <a href="viewItem?itemId=${cartItem.item.itemId}" th:text="${cartItem.item.itemId}">itemID</a>
+                        </td>
+                        <td>
+                            <p th:text="${cartItem.item.product.productId}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${cartItem.item.attribute1}"/>
+                            <p th:text="${cartItem.item.attribute2}"/>
+                            <p th:text="${cartItem.item.attribute3}"/>
+                            <p th:text="${cartItem.item.attribute4}"/>
+                            <p th:text="${cartItem.item.attribute5}"/>
+                            <p th:text="${cartItem.item.product.name}"/>
+                        </td>
+                        <td>
+                            <p th:text="${cartItem.inStock}">isInStock</p>
+                        </td>
+                        <td>
+                            <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" value="${cartItem.quantity}" />
+
+<!--
+                            <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" value="${cartItem.quantity}" onchange="refreshCart('${cartItem.item.itemId}',${cartItem.item.listPrice});"/>
+-->
+                        </td>
+                        <td>
+                            <p3 th:text="'$'+${#numbers.formatDecimal(cartItem.item.listPrice,1,2)}">listpeice</p3>
+                        <td id="totalOf${cartItem.item.itemId}">
+                            <p3 th:text="'$'+${#numbers.formatDecimal(cartItem.total,1,2)}">itemTotal</p3>
+
+                        <td>
+                            <a href="removeItemFromCart?workingItemId=${cartItem.item.itemId}" class="Button">Remove</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                <tr>
+                    <td colspan="7"  id="SubTotal">
+                        Sub Total:
+                        <p3 th:text="'$'+${#numbers.formatDecimal(cart.subTotal,1,2)}">total</p3>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </form>
+
+           <a th:if="${cart.numberOfItems} gt 0" href="#" class="button button-primary large">Proceed to Checkout</a>
+
+
+
+    </div>
+</section>
+
+<div th:replace="common/Bottom">
+
+</div>
+</body>
+</html>
+
