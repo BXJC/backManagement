@@ -14,7 +14,7 @@
     <update id="updateCart" >
         UPDATE CART
         SET
-         QUANTITY = #{cart.getcartItemList.get(i).quantity}
+         QUANTITY = #{cartItem.quantity}
          WHERE
          USERID = #{account.username}
          AND ITEMID = #{cartItem.item.itemId}

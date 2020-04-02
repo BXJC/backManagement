@@ -51,7 +51,7 @@
                             <p th:text="${cartItem.inStock}">isInStock</p>
                         </td>
                         <td>
-                            <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" value="${cartItem.quantity}" />
+                            <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" th:value="${cartItem.quantity}" />
 
 <!--
                             <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" value="${cartItem.quantity}" onchange="refreshCart('${cartItem.item.itemId}',${cartItem.item.listPrice});"/>
