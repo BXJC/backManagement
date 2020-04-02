@@ -54,14 +54,12 @@ public class CartController {
     }
 
     @GetMapping("/removeItemFromCart")
-    public String removeItemFromCart(String itemId,HttpSession session,Model model){
-        Cart cart = (Cart) session.getAttribute ("cart");
-        Account account = (Account) session.getAttribute ("account");
+    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute("account") Account account,Model model){
         Item item = cart.removeItemById (itemId);
         cartService.removeItemFromCart (account,itemId);
 
         if(item == null){
-            session.setAttribute ("msg","Attempted to remove null CartItem from Cart.");
+            model.addAttribute ("msg","Attempted to remove null CartItem from Cart.");
         }
         return "cart/viewCart";
     }
