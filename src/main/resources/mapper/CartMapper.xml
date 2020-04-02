@@ -20,7 +20,6 @@
          AND ITEMID = #{cartItem.item.itemId}
     </update>
 
-
     <insert id="addItemToCart"  >
         INSERT INTO CART (userId,itemId,quantity)
         VALUES (#{account.username},#{cartItem.itemId},#{CartItem.quantity})
