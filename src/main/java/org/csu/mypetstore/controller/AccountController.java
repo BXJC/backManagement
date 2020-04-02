@@ -5,52 +5,76 @@ import org.csu.mypetstore.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/account")
+@SessionAttributes({"account"})
 public class AccountController {
 
     @Autowired
     AccountService accountService;
+
+    private static final List<String> languageList;
+    private static final List<String> categoryList;
+
+    static {
+        List<String> langList = new ArrayList<String>();
+        langList.add("ENGLISH");
+        langList.add("CHINESE");
+        languageList = Collections.unmodifiableList(langList);
+
+        List<String> catList = new ArrayList<String>();
+        catList.add("FISH");
+        catList.add("DOGS");
+        catList.add("REPTILES");
+        catList.add("CATS");
+        catList.add("BIRDS");
+
+        categoryList = Collections.unmodifiableList(catList);
+    }
 
     @GetMapping("/signOnForm")
     public String signOnForm(){
         return "account/signOn.html";
     }
     @PostMapping("/signOn")
-    public String login(String password, String username, Model model,HttpSession session) {
+    public String login(String password, String username, Model model) {
         Account account = accountService.getAccount (username, password);
 
         if (account != null) {
-            session.setAttribute ("account", account);
+            model.addAttribute ("account", account);
             return "catalog/main";
         } else {
             model.addAttribute ("msg", "用户名或密码错误");
-            return "account/signon";
+            return "account/signOn";
         }
     }
 
     @GetMapping("/signOut")
-    public String signoff(Model model,HttpSession session) {
-        session.removeAttribute ("account");
+    public String signOff(Model model) {
+        Account account = null;
+        model.addAttribute("account",account);
         return "catalog/main";
     }
 
-    @GetMapping("/updataUserInfoForm")
-    public String  updataform(HttpSession session,Model model){
-        Account account=(Account)session.getAttribute ("account");
+    @GetMapping("/editUserInfoForm")
+    public String  editUserInfoForm(@SessionAttribute("account") Account account, Model model){
         model.addAttribute ("account",account);
+        model.addAttribute("languageList",languageList);
+        model.addAttribute("categoryList",categoryList);
+        System.out.println(account);
         return "account/editAccount";
     }
-    @PostMapping("/updateUserInfo")
-    public String updataUserInfo(Account account,String repeatpassword,Model model){
+    @PostMapping("/editUserInfo")
+    public String editUserInfo(Account account,String repeatPassword,Model model){
         String msg=null;
-        if(account.getPassword ().equals (repeatpassword))
+        if(account.getPassword ().equals (repeatPassword))
         {
             accountService.updateAccount (account);
             msg="修改成功";
@@ -62,7 +86,7 @@ public class AccountController {
         else {
             model.addAttribute ("account",account);
             System.out.println (account.getPassword ());
-            System.out.println (repeatpassword);
+            System.out.println (repeatPassword);
             msg="两次输入密码不一致";
             model.addAttribute ("msg",msg);
             return "account/editAccount";
@@ -75,8 +99,8 @@ public class AccountController {
         return "account/newAccount";
     }
     @PostMapping("/newAccount")
-    public String newAccount(String username,String password,String repeatpassword,Model model){
-        Account account=new Account ();
+    public String newAccount(String username,String password,String repeatPassword,Model model){
+        Account account=new Account();
         String msg=null;
 
         if(accountService.getAccount (username)!=null) {
@@ -84,13 +108,12 @@ public class AccountController {
             model.addAttribute ("msg",msg);
             return "account/newAccount";
         }
-        else if(password.equals (repeatpassword))
+        else if(password.equals (repeatPassword))
         {
             account.setUsername (username);
             account.setPassword (password);
 
-            accountService.updateAccount (account);
-            model.addAttribute ("msg",msg);
+            accountService.insertAccount(account);
             return "account/signOn";
 
         }

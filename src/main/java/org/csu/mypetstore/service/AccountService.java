@@ -12,6 +12,7 @@ public class AccountService {
     AccountMapper accountMapper;
 
     public Account getAccount(String username) {
+        Account account = accountMapper.getAccountByUsername(username);
         return accountMapper.getAccountByUsername(username);
     }
 
@@ -19,12 +20,12 @@ public class AccountService {
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(password);
+        if(accountMapper.getAccountByUsernameAndPassword(account) == null)
+            return accountMapper.getSignOnByUsernameAndPassword(account);
         return accountMapper.getAccountByUsernameAndPassword(account);
     }
 
     public void insertAccount(Account account) {
-        accountMapper.insertAccount(account);
-        accountMapper.insertProfile(account);
         accountMapper.insertSignon(account);
     }
 

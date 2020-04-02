@@ -30,9 +30,20 @@
       AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
   </select>
 
-    <select id="getAccountByUsernameAndPassword" parameterType="account" resultType="Account">
+    <select id="getSignOnByUsernameAndPassword" parameterType="Account" resultType="Account">
+        SELECT
+        *
+        FROM
+        SIGNON
+        WHERE
+        USERNAME = #{username}
+        AND PASSWORD = #{password}
+    </select>
+
+
+    <select id="getAccountByUsernameAndPassword" parameterType="Account" resultType="Account">
     SELECT
-      SIGNON.USERNAME,
+      SIGNON.USERNAME AS username,
       ACCOUNT.EMAIL,
       ACCOUNT.FIRSTNAME,
       ACCOUNT.LASTNAME,
@@ -58,7 +69,7 @@
   </select>
 
     <update id="updateAccount" parameterType="Account">
-    UPDATE ACCOUNT SET
+   UPDATE ACCOUNT SET
       EMAIL = #{email},
       FIRSTNAME = #{firstName},
       LASTNAME = #{lastName},

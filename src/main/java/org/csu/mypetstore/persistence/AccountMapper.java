@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
     Account getAccountByUsername(String username);
 
+    Account getSignOnByUsernameAndPassword(Account account);
+
     Account getAccountByUsernameAndPassword(Account account);
 
     void insertAccount(Account account);

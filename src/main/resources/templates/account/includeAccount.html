@@ -7,119 +7,107 @@
     <title>Title</title>
 </head>
 <body>
-<div th:replace="common/Top">
+    <div th:fragment="fields">
+        <h3>Account Information</h3>
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td>
+                    <input type="text" size="30"name="account.firstName" th:field="*{firstName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td>
+                    <input type="text"size="30" name="account.lastName" th:field="*{lastName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" size="30" name="account.email" th:field="*{email}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>
+                    <input type="text" size="30"name="account.phone" th:field="*{phone}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Address 1:</td>
+                <td>
+                    <input type="text" size="30"name="account.address1" th:field="*{address1}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Address 2:</td>
+                <td>
+                    <input type="text"size="30" name="account.address2" th:field="*{address2}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    <input type="text" size="30"name="account.city" th:field="*{city}">
+                </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    <input type="text" size="30" name="account.state" th:field="*{state}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Zip:</td>
+                <td>
+                    <input type="text" size="30" name="account.zip" th:field="*{zip}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td>
+                    <input type="text" size="30" name="account.country"th:field="*{country}"/>
+                </td>
+            </tr>
+        </table>
 
-</div>
+        <h3>Profile Information</h3>
 
-<h3>Account Information</h3>
-<table>
-    <tr>
-        <td>First name:</td>
-        <td>
-            <input type="text" size="30"name="account.firstName" th:field="*{session.account.firstName}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Last name:</td>
-        <td>
-            <input type="text"size="30" name="account.lastName" th:field="*{session.account.lastName}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>
-            <input type="text" size="30" name="account.email" th:field="*{session.account.email}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Phone:</td>
-        <td>
-            <input type="text" size="30"name="account.phone" th:field="*{session.account.phone}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Address 1:</td>
-        <td>
-            <input type="text" size="30"name="account.address1" th:field="*{session.account.address1}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Address 2:</td>
-        <td>
-            <input type="text"size="30" name="account.address2" th:field="*{session.account.address2}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>City:</td>
-        <td>
-            <input type="text" size="30"name="account.city" th:field="*{session.account.city}">
-        </td>
-    </tr>
-    <tr>
-        <td>State:</td>
-        <td>
-            <input type="text" size="30" name="account.state" th:field="*{session.account.state}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Zip:</td>
-        <td>
-            <input type="text" size="30" name="account.zip" th:field="*{session.account.zip}"/>
-        </td>
-    </tr>
-    <tr>
-        <td>Country:</td>
-        <td>
-            <input type="text" size="30" name="account.country"th:field="*{session.account.country}"/>
-        </td>
-    </tr>
-</table>
+        <table>
+            <tr>
+                <td>Language Preference:</td>
+                <td>
+                    <select th:field="*{languagePreference}" name="account.languagePreference">
+                        <option th:each="language:${languageList}" th:value="${language}" th:text="${language}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Favourite Category:</td>
+                <td>
+                    <select th:field="*{favouriteCategoryId}" name="account.favouriteCategoryId">
+                        <option th:each="category:${categoryList}" th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Enable MyList</td>
+                <td>
+                    <input th:if="*{listOption} ne null " type="checkbox" value="true" name="${listOption}" checked="checked">
+                    <input th:if="*{listOption} eq null " type="checkbox" value="true" name="${listOption}" >
+                </td>
+            </tr>
+            <tr>
+                <td>Enable MyBanner</td>
+                <td>
+                    <input th:if="*{bannerName} ne null " type="checkbox" value="true" name="${listOption}" checked="checked">
+                    <input th:if="*{bannerName} eq null " type="checkbox" value="true" name="${listOption}" >
+                </td>
+            </tr>
 
-<h3>Profile Information</h3>
-
-<table>
-    <tr>
-        <td>Language Preference:</td>
-        <td>
-            <select name="account.languagePreference">
-                <option selected="selected" value="english">english</option>
-                <option value="japanese">japanese</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Favourite Category:</td>
-        <td>
-            <select name="account.favouriteCategoryId">
-                <option value="FISH">FISH</option>
-                <option selected="selected" value="DOGS">DOGS</option>
-                <option value="REPTILES">REPTILES</option>
-                <option value="CATS">CATS</option>
-                <option value="BIRDS">BIRDS</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Enable MyList</td>
-        <td>
-            <input th:if="${session.account.listOption } ne null " type="checkbox" value="true" name="${session.account.listOption}" checked="checked">
-            <input th:if="${session.account.listOption } eq null " type="checkbox" value="true" name="${session.account.listOption}" >
-        </td>
-    </tr>
-    <tr>
-        <td>Enable MyBanner</td>
-        <td>
-            <input th:if="${session.account.bannerName} ne null " type="checkbox" value="true" name="${session.account.listOption}" checked="checked">
-            <input th:if="${session.account.bannerName} eq null " type="checkbox" value="true" name="${session.account.listOption}" >
-        </td>
-    </tr>
-
-</table>
-
-
-<div th:replace="common/Bottom">
-
-</div>
+        </table>
+    </div>
 </body>
 </html>
 
