@@ -1,12 +1,10 @@
 package org.csu.mypetstore;
 
-import org.csu.mypetstore.domain.Account;
-import org.csu.mypetstore.domain.Cart;
-import org.csu.mypetstore.domain.Category;
-import org.csu.mypetstore.domain.Product;
+import org.csu.mypetstore.domain.*;
 import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
+import org.csu.mypetstore.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,9 @@ class MypetstoreApplicationTests {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    OrderService orderService;
+
     @Test
     void contextLoads() {
     }
@@ -47,6 +48,18 @@ class MypetstoreApplicationTests {
 
       //  cartService.removeCart (account);
 
+    }
+
+    @Test
+    void testOrder(){
+        Order order = orderService.getOrder(1033);
+        System.out.println(order.getUsername() + " " + order.getOrderDate() + " " + order.getBillCity());
+    }
+
+    @Test
+    void testGetOrder(){
+        List<Order> orderList = orderService.getOrdersByUsername("a");
+        System.out.println(orderList);
     }
 
 
