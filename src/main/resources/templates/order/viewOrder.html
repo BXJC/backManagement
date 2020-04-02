@@ -19,7 +19,7 @@
             <table>
                 <tr>
                     <th align="center" colspan="2">Order #${sessionScope.order.orderId}
-                        <fmt:formatDate value="${  sessionScope.order.orderDate}" pattern="yyyy/MM/dd hh:mm:ss" />
+                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>
                     </th>
                 </tr>
                 <tr>
@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td>Card Number:</td>
-                    <td th:text="${sessionScope.cardNumber}+'* Fake number!'" ></td>
+                    <td th:text="${session.cardNumber}+'* Fake number!'" ></td>
                 </tr>
                 <tr>
                     <td>Expiry Date (MM/YYYY):</td>
@@ -130,7 +130,7 @@
                             </tr>
                                 <tr th:each="lineItem${session.order.lineItems}">
                                     <td>
-                                        <a href="viewItem?itemId=${lineItem.item.itemId}">${lineItem.item.itemId}</a>
+                                        <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}">${lineItem.item.itemId}</a>
                                     </td>
                                     <td th:if="${lineItem.item} != null">
                                         ${lineItem.item.attribute1}
@@ -151,7 +151,7 @@
                             </c:forEach>
                             <tr>
                                 <th colspan="5">Total:
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(${sessionScope.order.totalPrice},1,2)}">listpeice</p3>
+                                    <p3 th:text="'$'+${#numbers.formatDecimal(${session.order.totalPrice},1,2)}">listpeice</p3>
                                 </th>
                             </tr>
                         </table>
