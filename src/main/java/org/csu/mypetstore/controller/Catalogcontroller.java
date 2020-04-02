@@ -42,7 +42,7 @@ public class Catalogcontroller {
         return "catalog/product";
     }
 
-    @GetMapping(value = "/autoComplete", produces="application/XML;charset=UTF-8" )
+    @GetMapping(value = "/autoComplete", produces="application/Json;charset=UTF-8" )
     @ResponseBody
     public List<Product> autoComplete(String keyword){
         List<Product> productList=catalogService.searchProductList (keyword);

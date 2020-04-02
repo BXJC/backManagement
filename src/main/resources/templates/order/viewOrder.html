@@ -18,8 +18,9 @@
 
             <table>
                 <tr>
-                    <th align="center" colspan="2">Order #${sessionScope.order.orderId}
-<!--                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>-->
+                    <th align="center" colspan="2">Order
+                        <p th:text="${session.order.orderId}" ></p>
+                        <p th:text="${#dates.format(session.order.orderDate, 'yyyy/MM-dd/HH:mm:ss')}"></p>
                     </th>
                 </tr>
                 <tr>
@@ -27,19 +28,17 @@
                 </tr>
                 <tr>
                     <td>Card Type:</td>
-                    <td th:text="${ session.cardType}">
+                    <td th:text="${session.cardType}">
                     </td>
                 </tr>
                 <tr>
                     <td>Card Number:</td>
-                    <td th:text="${session.cardNumber}+'* Fake number!'" ></td>
+                    <td th:text="${session.cardNumber}"></td>
                 </tr>
-                <tr>
-                    <td>Expiry Date (MM/YYYY):</td>
-                    <td>
-                        "2018-12-03"
-                    </td>
-                </tr>
+         <!--       <tr>
+                   <p th:text="${#dates.format(order.orderDate, 'yyyy/MM-dd/HH:mm:ss')}"></p>
+
+                </tr>-->
                 <tr>
                     <th colspan="2">Billing Address</th>
                 </tr>
@@ -143,14 +142,14 @@
 
                                     </td>
 
-                                    <td>${lineItem.quantity}</td>
-<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.unitPrice},1,2)}">listpeice</p3>-->
-<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.total},1,2)}">listpeice</p3>/-->
+                                    <td th:text="lineItem.quantity">quantity</td>
+                                    <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.unitPrice,1,2)}">listpeice</p3>
+                                    <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.total,1,2)}">listpeice</p3>
 
                                 </tr>
                             <tr>
                                 <th colspan="5">Total:
-<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${session.order.totalPrice},1,2)}">listpeice</p3>-->
+                                    <p3 th:text="'$'+${#numbers.formatDecimal(session.order.totalPrice,1,2)}">listpeice</p3>
                                 </th>
                             </tr>
                         </table>

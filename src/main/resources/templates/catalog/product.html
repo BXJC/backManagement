@@ -41,7 +41,7 @@
 
                             <tr th:each="item:${itemList}">
                                     <td>
-                                        <a href="viewItem?itemId=${item.itemId}"><p2 th:text="${item.itemId}">itemId</p2></a>
+                                        <a th:href="@{/catalog/viewItem(itemId=${item.itemId})}"><p2 th:text="${item.itemId}">itemId</p2></a>
                                     </td>
                                     <td>
                                         <p3 th:text="${item.product.productId}">productId</p3>
