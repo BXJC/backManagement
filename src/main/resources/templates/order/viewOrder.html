@@ -19,7 +19,7 @@
             <table>
                 <tr>
                     <th align="center" colspan="2">Order #${sessionScope.order.orderId}
-                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>
+<!--                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>-->
                     </th>
                 </tr>
                 <tr>
@@ -128,7 +128,7 @@
                                 <th>Price</th>
                                 <th>Total Cost</th>
                             </tr>
-                                <tr th:each="lineItem${session.order.lineItems}">
+                                <tr th:each="lineItem:${session.order.lineItems}">
                                     <td>
                                         <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}">${lineItem.item.itemId}</a>
                                     </td>
@@ -144,14 +144,13 @@
                                     </td>
 
                                     <td>${lineItem.quantity}</td>
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.unitPrice},1,2)}">listpeice</p3>
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.total},1,2)}">listpeice</p3>
+<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.unitPrice},1,2)}">listpeice</p3>-->
+<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.total},1,2)}">listpeice</p3>/-->
 
                                 </tr>
-                            </c:forEach>
                             <tr>
                                 <th colspan="5">Total:
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(${session.order.totalPrice},1,2)}">listpeice</p3>
+<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${session.order.totalPrice},1,2)}">listpeice</p3>-->
                                 </th>
                             </tr>
                         </table>

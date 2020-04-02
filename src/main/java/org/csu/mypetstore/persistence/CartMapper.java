@@ -16,7 +16,7 @@ public interface CartMapper {
 
     public void addItemToCart(@Param ("account") Account account,@Param ("cartItem") CartItem cartItem);
 
-    public void removeCart(Account account);
+    public void removeCart(@Param ("account") Account account);
 
     public void removeItemFromCart(@Param("account") Account account,@Param ("itemId") String itemId);
 }

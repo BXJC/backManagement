@@ -13,7 +13,7 @@
     <div class="row pricing-content">
 
         <div class="col-four pricing-intro">
-            <form action="/order/confirmOrder" method="post" name="newOrderForm" th:object="${session.order}">
+            <form action="/order/confirmOrder" method="post" name="newOrderForm" th:object="${order}">
                 <table>
                     <tr>
                         <th colspan=2>Payment Details</th>
@@ -22,7 +22,7 @@
                         <td>Card Type:</td>
                         <td>
                             <select name="cardType">
-                                    <option th:each="creditCardType:${session.cardList}" >
+                                    <option th:each="creditCardType:${cardList}" th:value="${creditCardType}" th:text="${creditCardType}">
                                         creditCardType
                                     </option>
                             </select>
