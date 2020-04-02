@@ -22,7 +22,6 @@ public class CartService {
     public Cart getCart(String username)
     {
         Cart cart=new Cart ();
-        System.out.println ("username:"+username);
         List<CartItem> cartItemList=cartMapper.getCartItemList (username);
 
         Item item=new Item ();
@@ -30,7 +29,6 @@ public class CartService {
         for(int i=0;i<cartItemList.size ();i++){
             item=catalogService.getItem (cartItemList.get (i).getItemId ());
             cartItemList.get(i).setItem (item);
-            System.out.println ("itemId"+item.getItemId ());
         }
         cart.setCartItemList (cartItemList);
         return cart;

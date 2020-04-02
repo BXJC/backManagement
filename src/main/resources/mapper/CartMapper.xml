@@ -22,7 +22,7 @@
 
     <insert id="addItemToCart"  >
         INSERT INTO CART (userId,itemId,quantity)
-        VALUES (#{account.username},#{cartItem.itemId},#{CartItem.quantity})
+        VALUES (#{account.username},#{cartItem.item.itemId},#{cartItem.quantity})
     </insert>
 
     <delete id="removeCart" parameterType="Account">

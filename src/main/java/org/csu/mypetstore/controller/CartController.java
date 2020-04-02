@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/cart")
-@SessionAttributes({"cart"})
+@SessionAttributes({"cart","account"})
 public class CartController {
 
     @Autowired
@@ -55,13 +55,14 @@ public class CartController {
     }
 
     @GetMapping("/removeItemFromCart")
-    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute Account account, Model model){
+    public String removeItemFromCart(String itemId,@SessionAttribute("cart") Cart cart,@SessionAttribute("account") Account account, Model model){
         Item item = cart.removeItemById (itemId);
         cartService.removeItemFromCart (account,itemId);
 
         if(item == null){
             model.addAttribute ("msg","Attempted to remove null CartItem from Cart");
         }
+
         model.addAttribute ("cart",cart);
         return "cart/viewCart";
     }
