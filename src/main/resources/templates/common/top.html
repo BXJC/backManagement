@@ -15,7 +15,7 @@
 <header th:fragment="header" class="header">
 
     <div class="header-logo">
-        <a href="main">PETSTORE</a>
+        <a href="../index.html">PETSTORE</a>
     </div>
 
     <nav id="header-nav-wrap">
@@ -27,19 +27,19 @@
         </form>
 
         <ul class="header-main-nav">
-            <li class="current"><a class="smoothscroll"  href="../catalog/main.html" title="home">Home</a></li>
+            <li class="current"><a class="smoothscroll"  href="/catalog/view" title="home">Home</a></li>
 
 <!--            <li><a th:if="${account} == null" class="smoothscroll"  href="/account/signOnForm" title="about">My Cart</a></li>-->
 
-            <li><a th:if="${account} != null" class="smoothscroll"  href="viewCart" title="about">My Cart</a></li>
+            <li><a th:if="${session.account} != null" class="smoothscroll"  href="viewCart" title="about">My Cart</a></li>
 
-            <li><a th:if="${account} == null" href="/account/signOnForm">SignIn</a></li>
+            <li><a th:if="${session.account} == null" href="/account/signOnForm">SignIn</a></li>
 
-            <li><a th:if="${account} != null" class="smoothscroll" href="/account/signOut">SignOut</a></li>
+            <li><a th:if="${session.account} != null" class="smoothscroll" href="/account/signOut">SignOut</a></li>
 
-            <li><a th:if="${account} != null" class="smoothscroll"  href="/account/editUserInfoForm">MyAccount</a></li>
+            <li><a th:if="${session.account} != null" class="smoothscroll"  href="/account/editUserInfoForm">MyAccount</a></li>
 
-            <li><a href="../../static/help.html" class="smoothscroll" >Help</a> </li>
+            <li><a href="../help.html" class="smoothscroll" >Help</a> </li>
 
         </ul>
 
