@@ -1,7 +1,9 @@
 package org.csu.mypetstore.controller;
 
 import org.csu.mypetstore.domain.Account;
+import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.service.AccountService;
+import org.csu.mypetstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +16,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes({"account"})
+@SessionAttributes({"account","cart"})
 public class AccountController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    CartService cartService;
 
     private static final List<String> languageList;
     private static final List<String> categoryList;
@@ -46,9 +51,11 @@ public class AccountController {
     @PostMapping("/signOn")
     public String login(String password, String username, Model model) {
         Account account = accountService.getAccount (username, password);
-
+        Cart cart = null;
         if (account != null) {
             model.addAttribute ("account", account);
+            cart = cartService.getCart(username);
+            model.addAttribute("cart",cart);
             return "catalog/main";
         } else {
             model.addAttribute ("msg", "用户名或密码错误");

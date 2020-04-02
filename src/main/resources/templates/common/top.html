@@ -31,7 +31,7 @@
 
 <!--            <li><a th:if="${account} == null" class="smoothscroll"  href="/account/signOnForm" title="about">My Cart</a></li>-->
 
-            <li><a th:if="${session.account} != null" class="smoothscroll"  href="viewCart" title="about">My Cart</a></li>
+            <li><a th:if="${session.account} != null" class="smoothscroll"  href="/cart/viewCart" title="about">My Cart</a></li>
 
             <li><a th:if="${session.account} == null" href="/account/signOnForm">SignIn</a></li>
 

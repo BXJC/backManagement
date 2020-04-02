@@ -10,11 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/cart")
+@SessionAttributes({"cart"})
 public class CartController {
 
     @Autowired
@@ -31,9 +34,7 @@ public class CartController {
     }
 
     @GetMapping("/addToCart")
-    public String addToCart(String itemId, HttpSession session){
-        Account account = (Account)session.getAttribute ("account");
-        Cart cart = (Cart)session.getAttribute ("cart");
+    public String addToCart(String itemId,@SessionAttribute("account") Account account,@SessionAttribute("cart")Cart cart){
 
         if(cart == null){
             cart = new Cart ();
@@ -49,7 +50,6 @@ public class CartController {
             cart.addItem (item,isInStock);
             cartService.addItemToCart (account,cart.getCartItemList ().get (cart.getNumberOfItems ()-1));
         }
-        session.setAttribute ("cart",cart);
         return "cart/viewCart";
     }
 
