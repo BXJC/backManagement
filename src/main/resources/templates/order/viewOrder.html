@@ -18,8 +18,8 @@
 
             <table>
                 <tr>
-                    <th align="center" colspan="2">Order #${sessionScope.order.orderId}
-<!--                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>-->
+                    <th align="center" colspan="2" th:text="'Order ' + ${order.orderId}">
+                        <p th:text="${#dates.format(${order.orderDate}, 'yyyy-MM-dd/HH:mm:ss')}"></p>
                     </th>
                 </tr>
                 <tr>
@@ -27,12 +27,12 @@
                 </tr>
                 <tr>
                     <td>Card Type:</td>
-                    <td th:text="${ session.cardType}">
+                    <td th:text="${order.cardType}">
                     </td>
                 </tr>
                 <tr>
                     <td>Card Number:</td>
-                    <td th:text="${session.cardNumber}+'* Fake number!'" ></td>
+                    <td th:text="${order.creditCard}+'* Fake number!'" ></td>
                 </tr>
                 <tr>
                     <td>Expiry Date (MM/YYYY):</td>
@@ -128,24 +128,17 @@
                                 <th>Price</th>
                                 <th>Total Cost</th>
                             </tr>
-                                <tr th:each="lineItem:${session.order.lineItems}">
+                                <tr th:each="lineItem:${order.lineItems}">
                                     <td>
-                                        <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}">${lineItem.item.itemId}</a>
+                                        <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}" th:text="${lineItem.item.itemId}"></a>
                                     </td>
-                                    <td th:if="${lineItem.item} != null">
-                                        ${lineItem.item.attribute1}
-                                        ${lineItem.item.attribute2}
-                                        ${lineItem.item.attribute3}
-                                        ${lineItem.item.attribute4}
-                                        ${lineItem.item.attribute5}
-                                        ${lineItem.item.product.name}
+                                    <td th:if="${lineItem.item} != null" th:text="${lineItem.item.attribute1} + '\\n' + ${lineItem.item.product.name}">
                                         <i th:if="${lineItem.item} == null">{description unavailable}</i>
-
                                     </td>
 
-                                    <td>${lineItem.quantity}</td>
-<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.unitPrice},1,2)}">listpeice</p3>-->
-<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.total},1,2)}">listpeice</p3>/-->
+                                    <td th:text="${lineItem.quantity}">0</td>
+<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.unitPrice},0,2)}">listPrice</p3>-->
+<!--                                    <p3 th:text="'$'+${#numbers.formatDecimal(${lineItem.total},0,'COMMA',2,'POINT')}">totalPrice</p3>-->
 
                                 </tr>
                             <tr>
