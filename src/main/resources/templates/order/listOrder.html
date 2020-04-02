@@ -32,9 +32,8 @@
                         <td>
                             <a th:href="@{/order/viewOrder(orderId=${order.orderId},msg="view")">${order.orderId}</a>
                         </td>
-                        <p th:text="${#dates.format(${order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>
-                        <p3 th:text="'$'+${#numbers.formatDecimal(${order.totalPrice},1,2)}">listpeice</p3>
-
+                        <p th:text="${#dates.format(order.orderDate, 'yyyy/MM-dd/HH:mm:ss')}"></p>
+                        <p3 th:text="'$'+${#numbers.formatDecimal(order.totalPrice,1,2)}">listpeice</p3>
                     </tr>
                 </c:forEach>
             </table>
