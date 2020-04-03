@@ -59,6 +59,7 @@ public class OrderController {
             order = orderService.getOrder(order.getOrderId());
             model.addAttribute("order",order);
         }
+        System.out.println (order.getTotalPrice ());
         return "order/viewOrder";
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/catalog")
-@SessionAttributes({"account","product","item"})
+@SessionAttributes({"product","item"})
 public class Catalogcontroller {
 
     @Autowired
@@ -36,6 +36,7 @@ public class Catalogcontroller {
         List<Product> products=catalogService.getProductListByCategory (categoryId);
         model.addAttribute ("category",category);
         model.addAttribute ("productList",products);
+        System.out.println ("account:");
 
         return "catalog/category";
     }
@@ -65,13 +66,24 @@ public class Catalogcontroller {
         return "catalog/searchProducts";
     }
 
-
     @GetMapping("viewItem")
-    public String viewItem(@SessionAttribute("account") Account account, String itemId, Model model){
+    public String viewItem( Account account, String itemId, Model model){
         Item item = catalogService.getItem(itemId);
         Product product = item.getProduct();
         processProductDescription(product);
-        if(account != null)logService.insertBrowseLog (account,itemId);
+
+        model.addAttribute("item",item);
+        model.addAttribute("product",product);
+        return "catalog/item";
+    }
+
+    @GetMapping("viewItemWithAccount")
+    public String viewItemWithAccount(@SessionAttribute("account") Account account, String itemId, Model model){
+        Item item = catalogService.getItem(itemId);
+        Product product = item.getProduct();
+        processProductDescription(product);
+        if(account != null)
+            logService.insertBrowseLog (account,itemId);
 
         model.addAttribute("item",item);
         model.addAttribute("product",product);
