@@ -26,7 +26,7 @@
                 </tr>
                     <tr th:each="browseLogs:${browseLogList}">
                         <td>
-                            <a th:href="@{/catalog/viewItem(itemId=${browseLogs.itemId})}" th:text="${browseLogs.itemId}"></a>
+                            <a th:href="@{/catalog/viewItem(itemId=${browseLogs.itemId})}" th:text="${browseLogs.itemId}">itemId</a>
                         </td>
                         <td th:text="${browseLogs.logDate}">
 
@@ -43,7 +43,7 @@
                 </tr>
                     <tr th:each="addItemToCartLogs:${addToItemToCartLogList}">
                         <td>
-                            <a th:href="@{catalog/viewItem(itemId=${addItemToCartLogs.itemId})}">itemId</a>
+                            <a th:href="@{/catalog/viewItem(itemId=${addItemToCartLogs.itemId})}" th:text="${addItemToCartLogs.itemId}">itemId</a>
                         </td>
                         <td th:text=" ${addItemToCartLogs.logDate}">
 

@@ -21,7 +21,10 @@
                 <div class="plan-bottom-part">
                     <table class="two-line">
                         <tr>
-                            <td th:text=" ${product.description}"></td>
+                            <td>
+                                <img th:src=" ${product.descriptionImage}">
+                                <label th:text="${product.descriptionText}"></label>
+                            </td>
                         </tr>
                         <tr>
                             <td><b th:text=" ${ item.itemId}"</b></td>
@@ -73,7 +76,7 @@
                 </div>
 
                 <div class="home-scrolldown">
-                    <a href="viewProduct?productId=${productId}" class="scroll-icon smoothscroll">
+                    <a th:href="@{/catalog/viewProduct(productId=${product.productId})}" class="scroll-icon smoothscroll">
                         <span th:text="'Return to'+ ${product.productId}"></span>
                         <i class="icon-arrow-right" aria-hidden="true"></i>
                     </a>

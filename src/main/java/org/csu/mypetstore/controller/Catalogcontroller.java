@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/catalog")
-@SessionAttributes({"account"})
+@SessionAttributes({"account","product","item"})
 public class Catalogcontroller {
 
     @Autowired
@@ -26,7 +26,8 @@ public class Catalogcontroller {
     LogService logService;
 
     @GetMapping("/view")
-    public String view(){
+    public String view(Model model){
+        model.addAttribute("account",null);
         return "catalog/main";
     }
     @GetMapping("/viewCategory")
@@ -66,15 +67,27 @@ public class Catalogcontroller {
 
 
     @GetMapping("viewItem")
-    public String viewItem(@Autowired Account account, String itemId, Model model){
+    public String viewItem(@SessionAttribute("account") Account account, String itemId, Model model){
         Item item = catalogService.getItem(itemId);
         Product product = item.getProduct();
-
-        logService.insertBrowseLog (account,itemId);
+        processProductDescription(product);
+        if(account != null)logService.insertBrowseLog (account,itemId);
 
         model.addAttribute("item",item);
         model.addAttribute("product",product);
         return "catalog/item";
+    }
+
+
+    private void processProductDescription(Product product){
+        String [] temp = product.getDescription().split("\"");
+        product.setDescriptionImage(temp[1]);
+        product.setDescriptionText(temp[2].substring(1));
+    }
+    private void processProductDescription(List<Product> productList){
+        for(Product product : productList) {
+            processProductDescription(product);
+        }
     }
 
 }

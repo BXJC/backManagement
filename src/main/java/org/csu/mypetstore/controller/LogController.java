@@ -1,6 +1,5 @@
 package org.csu.mypetstore.controller;
 
-import com.sun.tracing.dtrace.Attributes;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Log;
 import org.csu.mypetstore.service.LogService;

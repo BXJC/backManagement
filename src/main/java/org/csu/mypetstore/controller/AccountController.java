@@ -51,7 +51,7 @@ public class AccountController {
     @PostMapping("/signOn")
     public String login(String password, String username, Model model) {
         Account account = accountService.getAccount (username, password);
-        Cart cart = null;
+        Cart cart = new Cart();
         if (account != null) {
             model.addAttribute ("account", account);
             cart = cartService.getCart(username);
@@ -65,8 +65,8 @@ public class AccountController {
 
     @GetMapping("/signOut")
     public String signOff(Model model) {
-        Account account = null;
-        model.addAttribute("account",account);
+        model.addAttribute("account",null);
+        model.addAttribute("cart",null);
         return "catalog/main";
     }
 
