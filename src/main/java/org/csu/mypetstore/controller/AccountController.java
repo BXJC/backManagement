@@ -68,7 +68,6 @@ public class AccountController {
     public String signOff(Model model,SessionStatus sessionStatus) {
         model.addAttribute("account",null);
         model.addAttribute("cart",null);
-        System.out.println (model.getAttribute ("account"));
         sessionStatus.setComplete();
 
         return "catalog/main";
