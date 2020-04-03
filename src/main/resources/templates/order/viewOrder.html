@@ -19,8 +19,8 @@
             <table>
                 <tr>
                     <th align="center" colspan="2">Order
-                        <p th:text="${session.order.orderId}" ></p>
-                        <p th:text="${#dates.format(session.order.orderDate, 'yyyy/MM-dd/HH:mm:ss')}"></p>
+                        <p th:text="${order.orderId}" ></p>
+                        <p th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd/HH:mm:ss')}"></p>
                     </th>
                 </tr>
                 <tr>
@@ -28,17 +28,16 @@
                 </tr>
                 <tr>
                     <td>Card Type:</td>
-                    <td th:text="${session.cardType}">
+                    <td th:text="${order.cardType}">
                     </td>
                 </tr>
                 <tr>
                     <td>Card Number:</td>
-                    <td th:text="${session.cardNumber}"></td>
+                    <td th:text="${order.creditCard}"></td>
                 </tr>
-         <!--       <tr>
-                   <p th:text="${#dates.format(order.orderDate, 'yyyy/MM-dd/HH:mm:ss')}"></p>
-
-                </tr>-->
+                 <tr>
+                   <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
                 <tr>
                     <th colspan="2">Billing Address</th>
                 </tr>
@@ -115,7 +114,7 @@
                 </tr>
                 <tr>
                     <td>Status:</td>
-                    <td>"${sessionScope.order.status}"</td>
+                    <td th:text="${session.order.status}"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -129,27 +128,25 @@
                             </tr>
                                 <tr th:each="lineItem:${session.order.lineItems}">
                                     <td>
-                                        <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}">${lineItem.item.itemId}</a>
+                                        <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}" th:text="${lineItem.item.itemId}"></a>
                                     </td>
-                                    <td th:if="${lineItem.item} != null">
-                                        ${lineItem.item.attribute1}
-                                        ${lineItem.item.attribute2}
-                                        ${lineItem.item.attribute3}
-                                        ${lineItem.item.attribute4}
-                                        ${lineItem.item.attribute5}
-                                        ${lineItem.item.product.name}
+                                    <td th:if="${lineItem.item} != null" th:text="${lineItem.item.attribute1} + ' ' + ${lineItem.item.product.name}">
                                         <i th:if="${lineItem.item} == null">{description unavailable}</i>
 
                                     </td>
 
-                                    <td th:text="lineItem.quantity">quantity</td>
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.unitPrice,1,2)}">listpeice</p3>
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.total,1,2)}">listpeice</p3>
+                                    <td th:text="${lineItem.quantity}">quantity</td>
+                                    <td>
+                                        <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.unitPrice,1,2)}">listPrice</p3>
+                                    </td>
+                                    <td>
+                                        <p3 th:text="'$'+${#numbers.formatDecimal(lineItem.total,1,2)}">totalPrice</p3>
+                                    </td>
 
                                 </tr>
                             <tr>
                                 <th colspan="5">Total:
-                                    <p3 th:text="'$'+${#numbers.formatDecimal(session.order.totalPrice,1,2)}">listpeice</p3>
+                                    <p3 th:text="'$'+${#numbers.formatDecimal(order.totalPrice,1,2)}">totalPrice</p3>
                                 </th>
                             </tr>
                         </table>
