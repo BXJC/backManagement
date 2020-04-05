@@ -27,13 +27,13 @@
 
                             <tr th:each="product:${productList}">
                                 <td>
-                                    <a href="#" th:text="${product.description}">productdescription</a>
+                                    <img th:src=" ${product.descriptionImage}">
+                                    <label th:text="${product.descriptionText}"></label>
                                 </td>
                                 <td>
                                     <b th:text="${product.productId}">productId</b>
                                 </td>
-                                <td th:text="${product.name}">productname
-                                </td>
+                                <td th:text="${product.name}">productName</td>
                             </tr>
 
                         </table>

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script th:src="@{../js/jquery.js}"></script>
+    <script th:src="@{../js/dynamicShippingForm.js}"></script>
 </head>
 <body>
 <div th:replace="common/Top">
@@ -95,7 +97,7 @@
 
                     <tr>
                         <td colspan=2>
-                            <input type="checkbox"  id="ToShipping" onclick="dynamicShipping(this);"/>
+                            <input type="checkbox"  id="ToShipping" th:onclick="'javascript:dynamicShipping(this);'"/>
                             Ship to different address...
                         </td>
                     </tr>

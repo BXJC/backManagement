@@ -61,6 +61,7 @@ public class Catalogcontroller {
     @PostMapping("/searchProducts")
     public String searchProduct(String keyword,Model model){
         List<Product> products=catalogService.searchProductList (keyword);
+        processProductDescription(products);
         model.addAttribute ("productList",products);
 
         return "catalog/searchProducts";

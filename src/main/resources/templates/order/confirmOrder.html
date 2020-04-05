@@ -20,7 +20,7 @@
                 <tr>
                     <th align="center" colspan="2"><font size="4"><b>Order</b></font>
                         <br />
-<!--                        <p th:text="${#dates.format(${session.order.orderDate}, 'yyyy/MM-dd/HH:mm:ss')}"></p>-->
+                        <p th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd/HH:mm:ss')}"></p>
                     </th>
                 </tr>
 
@@ -29,74 +29,74 @@
                 </tr>
                 <tr>
                     <td>First name:</td>
-                    <td th:text="${session.order.billToFirstName}"> firstName </td>
+                    <td th:text="${order.billToFirstName}"> firstName </td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
-                    <td th:text=" ${session.order.billToLastName}">lastName  </td>
+                    <td th:text=" ${order.billToLastName}">lastName  </td>
                 </tr>
                 <tr>
                     <td>Address 1:</td>
-                    <td th:text="${session.order.billAddress1}">  </td>
+                    <td th:text="${order.billAddress1}">  </td>
                 </tr>
                 <tr>
                     <td>Address 2:</td>
-                    <td th:text="${session.order.billAddress2}"> </td>
+                    <td th:text="${order.billAddress2}"> </td>
                 </tr>
                 <tr>
                     <td>City:</td>
-                    <td th:text="${session.order.billCity}">  </td>
+                    <td th:text="${order.billCity}">  </td>
                 </tr>
                 <tr>
                     <td>State:</td>
-                    <td th:text="${session.order.billState}">  </td>
+                    <td th:text="${order.billState}">  </td>
                 </tr>
                 <tr>
                     <td>Zip:</td>
-                    <td th:text="${session.order.billZip}">  </td>
+                    <td th:text="${order.billZip}">  </td>
                 </tr>
                 <tr>
                     <td>Country:</td>
-                    <td th:text="${session.order.billCountry}">  </td>
+                    <td th:text="${order.billCountry}">  </td>
                 </tr>
                 <tr>
                     <th colspan="2">Shipping Address</th>
                 </tr>
                 <tr>
                     <td>First name:</td>
-                    <td th:text="${session.order.shipToFirstName}">  </td>
+                    <td th:text="${order.shipToFirstName}">  </td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
-                    <td th:text="${session.order.shipToLastName}" > </td>
+                    <td th:text="${order.shipToLastName}" > </td>
                 </tr>
                 <tr>
                     <td>Address 1:</td>
-                    <td th:text="${session.order.shipAddress1}">  </td>
+                    <td th:text="${order.shipAddress1}">  </td>
                 </tr>
                 <tr>
                     <td>Address 2:</td>
-                    <td th:text="${session.order.shipAddress2}">  </td>
+                    <td th:text="${order.shipAddress2}">  </td>
                 </tr>
                 <tr>
                     <td>City:</td>
-                    <td th:text="${session.order.shipCity}">  </td>
+                    <td th:text="${order.shipCity}">  </td>
                 </tr>
                 <tr>
                     <td>State:</td>
-                    <td th:text="${session.order.shipState}">  </td>
+                    <td th:text="${order.shipState}">  </td>
                 </tr>
                 <tr>
                     <td>Zip:</td>
-                    <td th:text="${session.order.shipZip}">  </td>
+                    <td th:text="${order.shipZip}">  </td>
                 </tr>
                 <tr>
                     <td>Country:</td>
-                    <td th:text="${session.order.shipCountry}">  </td>
+                    <td th:text="${order.shipCountry}">  </td>
                 </tr>
 
             </table>
-            <a href="/order/viewOrder?msg=new" class="Button">Confirm</a>
+            <a href="/order/viewNewOrder" class="Button">Confirm</a>
         </div>
     </div>
 </section>

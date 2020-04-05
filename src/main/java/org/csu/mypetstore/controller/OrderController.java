@@ -49,19 +49,20 @@ public class OrderController {
         return "order/confirmOrder";
     }
 
-    @GetMapping("/viewOrder")
-    public String ViewOrder(@SessionAttribute("order") Order order,@SessionAttribute("account") Account account, String msg, Model model){
-        if(msg.equals("new")){
+    @GetMapping("/viewNewOrder")
+    public String ViewOrder(@SessionAttribute("order") Order order,@SessionAttribute("account") Account account){
             cartService.removeCart(account);
             orderService.insertOrder(order);
-        }
-        if(msg.equals("view")){
-            order = orderService.getOrder(order.getOrderId());
-            model.addAttribute("order",order);
-        }
-        System.out.println (order.getTotalPrice ());
         return "order/viewOrder";
     }
+
+    @GetMapping("/viewOldOrder")
+    public String viewOrder(int orderId, Model model){
+        Order order = orderService.getOrder(orderId);
+        model.addAttribute("order",order);
+        return "order/viewOrder";
+    }
+
 
     @GetMapping("/listOrders")
     public String ListOrders(@SessionAttribute("account")Account account,Model model){

@@ -53,9 +53,7 @@
                         <td>
                             <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" th:value="${cartItem.quantity}" />
 
-<!--
-                            <input type="text" id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" value="${cartItem.quantity}" onchange="refreshCart('${cartItem.item.itemId}',${cartItem.item.listPrice});"/>
--->
+<!--                            <input type="text" th:id="quantityOf${cartItem.item.itemId}" name="${cartItem.item.itemId}" th:value="${cartItem.quantity}" onchange="refreshCart('${cartItem.item.itemId}',${cartItem.item.listPrice});"/>-->
                         </td>
                         <td>
                             <p3 th:text="'$'+${#numbers.formatDecimal(cartItem.item.listPrice,1,2)}">listpeice</p3>
