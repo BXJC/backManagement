@@ -38,6 +38,8 @@ public class OrderService {
             Map<String, Object> param = new HashMap<String, Object>(2);
             param.put("itemId", itemId);
             param.put("increment", increment);
+            System.out.println (itemId+"id+incre"+increment);
+            System.out.println ("increment:"+increment);
             itemMapper.updateInventoryQuantity(param);
         }
 

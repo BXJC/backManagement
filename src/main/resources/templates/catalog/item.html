@@ -50,7 +50,7 @@
                                 <span>Stock</span>
                             </td>
                             <td>
-                                <p th:if="${item.quantity} <= 0" th:text="Back ordered."/>
+                                <p th:if="${item.quantity} <= 0" >th:text="Back ordered."</p>
                                 <p th:if="${item.quantity} > 0" th:text="${ item.quantity}+'is in stock'"/>
                             </td>
                         </tr>
@@ -65,9 +65,9 @@
 
                         <tr>
                             <td>
-                                <a th:if="${session.account} != null" th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
 
-                                <a th:if="${session.account} == null" href="/account/signOnForm">Add to Cart</a>
+                                <a th:if="${ session.account!= null}" th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
+                                <a th:if="${ session.account == null}" href="/account/signOnForm">Add to Cart</a>
                             </td>
                         </tr>
                     </table>

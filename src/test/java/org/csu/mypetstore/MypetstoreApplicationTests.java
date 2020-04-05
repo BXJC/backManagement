@@ -1,6 +1,7 @@
 package org.csu.mypetstore;
 
 import org.csu.mypetstore.domain.*;
+import org.csu.mypetstore.persistence.ItemMapper;
 import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
@@ -10,7 +11,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @MapperScan("org.csu.mypetstore.persistence")
@@ -28,6 +31,9 @@ class MypetstoreApplicationTests {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    ItemMapper itemMapper;
 
     @Test
     void contextLoads() {
@@ -62,6 +68,17 @@ class MypetstoreApplicationTests {
         System.out.println(orderList);
     }
 
-
+    @Test
+    void testInventoryQuantity(){
+        Map<String, Object> param = new HashMap<String, Object> (2);
+        String itemId = "EST-4";
+        int increment = 2;
+        param.put("itemId", itemId);
+        param.put("increment", increment);
+        System.out.println (itemId+"id+incre"+increment);
+        System.out.println ("increment:"+increment);
+        itemMapper.updateInventoryQuantity(param);
+        System.out.println (itemMapper.getInventoryQuantity (itemId));
+    }
 
 }

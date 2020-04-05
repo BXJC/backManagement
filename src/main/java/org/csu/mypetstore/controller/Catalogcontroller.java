@@ -47,6 +47,7 @@ public class Catalogcontroller {
         model.addAttribute ("product",product);
         model.addAttribute ("itemList",items);
 
+
         return "catalog/product";
     }
 
@@ -72,6 +73,8 @@ public class Catalogcontroller {
         Item item = catalogService.getItem(itemId);
         Product product = item.getProduct();
         processProductDescription(product);
+        System.out.println ("quantity"+item.getQuantity ());
+
 
         model.addAttribute("item",item);
         model.addAttribute("product",product);
@@ -81,6 +84,7 @@ public class Catalogcontroller {
     @GetMapping("viewItemWithAccount")
     public String viewItemWithAccount(@SessionAttribute("account") Account account, String itemId, Model model){
         Item item = catalogService.getItem(itemId);
+        System.out.println ("quantity"+item.getQuantity ());
         Product product = item.getProduct();
         processProductDescription(product);
         if(account != null)
