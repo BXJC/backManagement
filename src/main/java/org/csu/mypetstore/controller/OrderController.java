@@ -45,13 +45,11 @@ public class OrderController {
     public String newOrder(@SessionAttribute("account") Account account, @SessionAttribute("cart") Cart cart, Model model){
         Order order = new Order();
         Iterator<CartItem> i = cart.getAllCartItems();
-        System.out.println ("cartItemQ"+i.hasNext ());
 
         while (i.hasNext()) {
             CartItem cartItem = i.next();
             int quantity = cartItem.getItem ().getQuantity ();
             int increment = cartItem.getQuantity ();
-            System.out.println (quantity+"jdksfhk"+increment);
 
             if(quantity < increment)
             {

@@ -45,7 +45,6 @@ public class CatalogService {
 
     public Item getItem(String itemId) {
         Item item = itemMapper.getItem(itemId);
-        System.out.println ("item:"+item.getQuantity ());
         return item;
 
     }

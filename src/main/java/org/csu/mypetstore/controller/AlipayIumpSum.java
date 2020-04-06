@@ -29,12 +29,11 @@ public class AlipayIumpSum {
     @RequestMapping("alipaySum")
     public Object alipayIumpSum(Model model, @SessionAttribute("order") Order order, HttpServletResponse response)
             throws Exception {
-        System.out.println (order.getUsername ());
         String WIDout_trade_no = order.getTotalPrice ().toString ();
         String WIDsubject = String.valueOf (order.getOrderId ());
         String WIDtotal_amount = order.getUsername ();
         String WIDbody = order.getOrderDate ().toString ();
-        System.out.println("请求进来"+WIDtotal_amount);
+
         String payables = WIDout_trade_no;
         // 订单名称，必填(必须是数字)
         String subject = WIDsubject;
