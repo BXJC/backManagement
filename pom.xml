@@ -33,6 +33,21 @@
             <version>2.1.2</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.3.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+
+
         <dependency>
             <groupId>aliyun-message-sdk-core</groupId>
             <artifactId>aliyun-message-sdk-core</artifactId>
@@ -77,6 +92,12 @@
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-xml-provider</artifactId>
             <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin.external.google</groupId>
+            <artifactId>android-json</artifactId>
+            <version>0.0.20131108.vaadin1</version>
+            <scope>compile</scope>
         </dependency>
 
 
