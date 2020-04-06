@@ -1,5 +1,6 @@
 package org.csu.mypetstore.controller;
 
+import org.springframework.util.DigestUtils;
 import com.aliyuncs.exceptions.ClientException;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.csu.mypetstore.domain.Account;
@@ -48,13 +49,15 @@ public class AccountController {
     }
 
     @GetMapping("/signOnForm")
-    public String signOnForm(String method){
+    public String signOnForm(String method,Model model){
         if(method .equals ("username") ){ return "account/signOn.html";}
-        else {return "account/signOnByPhone.html";}
+        else {
+            model.addAttribute ("sms","notexit");
+            return "account/signOnByPhone.html";}
     }
     @PostMapping("/signOn")
     public String login(String password, String username, Model model) {
-        Account account = accountService.getAccount (username, password);
+        Account account = accountService.getAccount (username,DigestUtils.md5DigestAsHex(password.getBytes()));
         Cart cart = new Cart();
         if (account != null) {
             model.addAttribute ("account", account);
@@ -66,7 +69,6 @@ public class AccountController {
             return "account/signOn";
         }
     }
-
     @PostMapping("/signOnByPhone")
     public String loginByPhone(String phoneNumber,@SessionAttribute String sms,String iCode, Model model) {
         Account account = accountService.getAccountByPhoneNumber (phoneNumber);
@@ -90,9 +92,7 @@ public class AccountController {
             model.addAttribute("cart",cart);
             return "catalog/main";
         }
-
     }
-
     @GetMapping("/signOut")
     public String signOff(Model model,SessionStatus sessionStatus) {
         model.addAttribute("account",null);
@@ -116,6 +116,7 @@ public class AccountController {
 
         if(account.getPassword ().equals (repeatPassword))
         {
+            account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword ().getBytes()));
             accountService.updateAccount (account);
             msg="修改成功";
             model.addAttribute ("account",account);
@@ -155,7 +156,7 @@ public class AccountController {
             return "account/newAccount";
         } else if (password.equals (repeatPassword)) {
             account.setUsername (username);
-            account.setPassword (password);
+            account.setPassword (DigestUtils.md5DigestAsHex(password.getBytes()));
             account.setPhone (phoneNumber);
 
             accountService.insertAccount (account);
@@ -171,13 +172,15 @@ public class AccountController {
 
     @GetMapping( "/sendVCode" )
     @ResponseBody
-    public String sendVCode(String phoneNumber,HttpSession session) throws ClientException {
+    public String sendVCode(String phoneNumber,Model model,HttpSession session) throws ClientException {
         System.out.println ("手机号"+phoneNumber);
         String sms = accountService.sendMsg (phoneNumber);
         String msg;
-        System.out.println ("smss:"+sms);
+        System.out.println ("smss"+sms);
+
         if(sms != null){
             msg = "验证码发送成功";
+            model.addAttribute ("sms",sms);
             session.setAttribute ("sms",sms);
         }
         else {
