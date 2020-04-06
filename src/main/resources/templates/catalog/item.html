@@ -67,7 +67,7 @@
                             <td>
 
                                 <a th:if="${ session.account!= null}" th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
-                                <a th:if="${ session.account == null}" href="/account/signOnForm">Add to Cart</a>
+                                <a th:if="${ session.account == null}" href="/account/signOnForm?method=username">Add to Cart</a>
                             </td>
                         </tr>
                     </table>

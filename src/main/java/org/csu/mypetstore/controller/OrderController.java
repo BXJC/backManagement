@@ -63,7 +63,6 @@ public class OrderController {
         order.initOrder(account,cart);
         model.addAttribute("order",order);
         model.addAttribute("cardList",cardList);
-
         return "order/newOrderForm";
     }
 
@@ -71,7 +70,6 @@ public class OrderController {
     public String ConfirmOrder(){
         return "order/confirmOrder";
     }
-
 
     @GetMapping("/viewNewOrder")
     public String ViewOrder(@SessionAttribute("order") Order order,@SessionAttribute("account") Account account){
@@ -93,8 +91,8 @@ public class OrderController {
         List<Order> orderList = orderService.getOrdersByUsername(account.getUsername());
         model.addAttribute("orderList",orderList);
         return "order/listOrder";
-
     }
+
 
 
 

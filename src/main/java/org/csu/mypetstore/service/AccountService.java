@@ -66,7 +66,7 @@ public class AccountService {
             Map<String, String> paramMap = new HashMap<>();
             paramMap.put("phoneNumber", phoneNumber);
             paramMap.put("msgSign", "CSUDazz宠物商店");
-            paramMap.put("templateCode", "SMS_187261139");
+            paramMap.put("templateCode", "SMS_187271386");
             paramMap.put("jsonContent", jsonContent);
 
             SendSmsResponse sendSmsResponse = AliyunMessageUtil.sendSms(paramMap);

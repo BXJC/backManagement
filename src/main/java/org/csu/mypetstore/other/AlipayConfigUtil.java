@@ -1,12 +1,17 @@
 package org.csu.mypetstore.other;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
 
-public class AlipayConfigInfo  {
+public class AlipayConfigUtil {
     // ↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
     // 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
@@ -16,13 +21,13 @@ public class AlipayConfigInfo  {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6MTP7oCy3A7Bl89IQwybd77Kg7D3Ed46oZoqL8AlooWs5sP+v26GK9ZUlE5M3qyqU5KjLsqIfm1wkGxsEvCm441wcyl9JtFs6rk5sTRmVRbeSnI02EbIWIKyyn8ICt+R3FuphF3QGnKszgFH9rpf7YfxWQRrYA/eGEv2+znyiTUEwQAmxq62rxIwMDPA9pyRgJY9jvmM1EFi2Jwn1RSBKTmFhjy2RWCMNc6Gh9Xj6bk9UvX5WekldL36/3Wi89IHqZ91goY8YR9isZgvtqXz1Mz9qVUPjYYbF0mPeIZKPjheyqLAV+w4+je3gj4PSljSZUc6u8JyJ5enpb6jHEkbwIDAQAB";/**
      * 返回的时候此页面不会返回到用户页面，只会执行你写到控制器里的地址
      */
-    public static String notify_url="https://www.baidu.com/";
+    public static String notify_url="http://30c7c19239.wicp.vip/alipay/notify_url";
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
     /**
      * 此页面是同步返回用户页面，也就是用户支付后看到的页面，上面的notify_url是异步返回商家操作，谢谢
      * 要是看不懂就找度娘，或者多读几遍，或者去看支付宝第三方接口API，不看API直接拿去就用，遇坑不怪别人,要使用外网能访问的ip,建议使用花生壳,内网穿透
      */
-    public static String return_url = "https://translate.google.cn/";
+    public static String return_url = "http://30c7c19239.wicp.vip/alipay/aliCallback";
     // 签名方式
     public static String sign_type = "RSA2";
     // 字符编码格式
@@ -57,5 +62,42 @@ public class AlipayConfigInfo  {
             }
         }
     }
+
+    public static boolean checkSign(HttpServletRequest req) {
+        Map<String, String[]> requestMap = req.getParameterMap();
+        Map<String, String> paramsMap = new HashMap<> ();
+        requestMap.forEach((key, values) -> {
+            String strs = "";
+            for(String value : values) {
+                strs = strs + value;
+            }
+            System.out.println(("key值为"+key+"value为："+strs));
+            paramsMap.put(key, strs);
+        });
+
+        //调用SDK验证签名
+        try {
+            return  AlipaySignature.rsaCheckV1(paramsMap, alipay_public_key,charset, sign_type);
+        } catch (AlipayApiException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("*********************验签失败********************");
+            return false;
+        }
+    }
+    public static Map<String, String> turnToHash(HttpServletRequest req){
+        Map<String, String[]> requestMap = req.getParameterMap();
+        Map<String, String> paramsMap = new HashMap<> ();
+        requestMap.forEach((key, values) -> {
+            String strs = "";
+            for(String value : values) {
+                strs = strs + value;
+            }
+            System.out.println(("key值为"+key+"value为："+strs));
+            paramsMap.put(key, strs);
+        });
+        return paramsMap;
+    }
+
 }
 

@@ -1,5 +1,6 @@
 package org.csu.mypetstore.controller;
 
+import org.apache.http.HttpResponse;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Category;
 import org.csu.mypetstore.domain.Item;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -26,10 +30,18 @@ public class Catalogcontroller {
     LogService logService;
 
     @GetMapping("/view")
-    public String view(Model model){
+    public String view(Model model, HttpSession session, HttpServletResponse response){
+
+        Cookie cookie=new Cookie("sessionId",session.getId ());
+        System.out.println ("sessionId:"+session.getId());
+        cookie.setPath ("/");
+        cookie.setMaxAge(7 * 24 * 60 * 60);
+
+        response.addCookie(cookie);
         model.addAttribute("account",null);
         return "catalog/main";
     }
+
     @GetMapping("/viewCategory")
     public String viewCategory(String categoryId, Model model){
         Category category=catalogService.getCategory (categoryId);
@@ -84,7 +96,7 @@ public class Catalogcontroller {
     @GetMapping("viewItemWithAccount")
     public String viewItemWithAccount(@SessionAttribute("account") Account account, String itemId, Model model){
         Item item = catalogService.getItem(itemId);
-        System.out.println ("quantity"+item.getQuantity ());
+
         Product product = item.getProduct();
         processProductDescription(product);
         if(account != null)

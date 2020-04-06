@@ -2,7 +2,6 @@ package org.csu.mypetstore.controller;
 
 import org.springframework.util.DigestUtils;
 import com.aliyuncs.exceptions.ClientException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.service.AccountService;
@@ -58,6 +57,7 @@ public class AccountController {
     @PostMapping("/signOn")
     public String login(String password, String username, Model model) {
         Account account = accountService.getAccount (username,DigestUtils.md5DigestAsHex(password.getBytes()));
+
         Cart cart = new Cart();
         if (account != null) {
             model.addAttribute ("account", account);
@@ -140,6 +140,7 @@ public class AccountController {
 
         return "account/newAccount";
     }
+
     @PostMapping("/newAccount")
     public String newAccount(@SessionAttribute String sms, String username,String password,String repeatPassword,String inputCode,String phoneNumber,Model model){
         Account account=new Account();
