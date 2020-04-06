@@ -10,8 +10,7 @@ public interface AccountMapper {
     Account getSignOnByUsernameAndPassword(Account account);
 
     Account getAccountByUsernameAndPassword(Account account);
-
-    Account getAccountByPhonenumber(String phonenumber);
+    
 
     void insertAccount(Account account);
 
@@ -25,4 +24,11 @@ public interface AccountMapper {
 
     void updateSignon(Account account);
 
+    Account getAccountByPhone(Account account);
+
+    Account getSignOnByPhone(Account account);
+
+    Account checkPhone(String phone);
+
+    Account getSignOnByUsername(String username);
 }

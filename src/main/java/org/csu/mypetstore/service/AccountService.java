@@ -21,8 +21,12 @@ public class AccountService {
 
     public Account getAccount(String username) {
         Account account = accountMapper.getAccountByUsername(username);
+        if(accountMapper.getAccountByUsername(username) == null){
+            return accountMapper.getSignOnByUsername(username);
+        }
         return accountMapper.getAccountByUsername(username);
     }
+
 
     public Account getAccount(String username, String password) {
         Account account = new Account();
@@ -90,6 +94,16 @@ public class AccountService {
 
 
     public Account getAccountByPhoneNumber(String phoneNumber) {
-        return accountMapper.getAccountByPhonenumber (phoneNumber);
+        Account account = new Account();
+        account.setPhone (phoneNumber);
+        if(accountMapper.getAccountByPhone(account) == null)
+            return accountMapper.getSignOnByPhone(account);
+        return accountMapper.getAccountByPhone(account);
+    }
+
+    public boolean checkPhone(String phoneNumber) {
+        if(accountMapper.checkPhone(phoneNumber) != null)
+            return true;
+        else return false;
     }
 }

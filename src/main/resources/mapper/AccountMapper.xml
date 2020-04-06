@@ -30,7 +30,16 @@
       AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
   </select>
 
-    <select id="getAccountByPhonenumber" parameterType="string" resultType="Account">
+    <select id="checkPhone" parameterType="string" resultType="Account">
+    SELECT
+        *
+        FROM
+        SIGNON
+        WHERE
+        PHONE = #{phone}
+  </select>
+
+    <select id="getAccountByPhone" parameterType="string" resultType="Account">
     SELECT
           SIGNON.USERNAME,
           ACCOUNT.EMAIL,
@@ -50,7 +59,7 @@
           PROFILE.BANNEROPT AS bannerOption,
           BANNERDATA.BANNERNAME
     FROM ACCOUNT, PROFILE, SIGNON, BANNERDATA
-    WHERE ACCOUNT.PHONE = #{phonenumber}
+    WHERE ACCOUNT.PHONE = #{phone}
       AND SIGNON.USERNAME = ACCOUNT.USERID
       AND PROFILE.USERID = ACCOUNT.USERID
       AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
@@ -64,6 +73,24 @@
         WHERE
         USERNAME = #{username}
         AND PASSWORD = #{password}
+    </select>
+
+    <select id="getSignOnByUsername"  resultType="Account">
+        SELECT
+        *
+        FROM
+        SIGNON
+        WHERE
+        USERNAME = #{username}
+    </select>
+
+    <select id="getSignOnByPhone" parameterType="Account" resultType="Account">
+        SELECT
+        *
+        FROM
+        SIGNON
+        WHERE
+        PHONE = #{phone}
     </select>
 
 
@@ -137,8 +164,8 @@
   </update>
 
     <insert id="insertSignon" parameterType="account">
-    INSERT INTO SIGNON (PASSWORD,USERNAME)
-    VALUES (#{password}, #{username})
+    INSERT INTO SIGNON (PASSWORD,USERNAME,PHONE)
+    VALUES (#{password}, #{username},#{phone})
   </insert>
 
 </mapper>

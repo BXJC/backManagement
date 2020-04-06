@@ -150,6 +150,11 @@ public class AccountController {
             model.addAttribute ("msg",msg);
             return  "account/newAccount";
         }
+        else if(accountService.checkPhone (phoneNumber)){
+            msg = "手机号已被注册";
+            model.addAttribute ("msg", msg);
+            return "account/newAccount";
+        }
         else if (accountService.getAccount (username) != null) {
             msg = "用户名已被使用";
             model.addAttribute ("msg", msg);
@@ -162,7 +167,9 @@ public class AccountController {
             accountService.insertAccount (account);
             return "account/signOn";
 
-        } else {
+        }
+
+        else {
             msg = "两次密码输入不一致";
             model.addAttribute ("msg", msg);
             return "account/newAccount";
