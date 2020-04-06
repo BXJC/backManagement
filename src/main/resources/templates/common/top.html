@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="../image/x-icon">
     <link rel="icon" href="favicon.ico" type="../image/x-icon">
     <script src="../js/autoComplete.js" th:inline="javascript"></script>
+    <script src="../js/sendVerificationCode.js" th:inline="javascript"></script>
 
 </head>
 <body>
@@ -30,7 +31,7 @@
 
             <li><a th:if="${session.account} != null" class="smoothscroll"  href="/cart/viewCart" title="about">My Cart</a></li>
 
-            <li><a th:if="${session.account} == null" href="/account/signOnForm">Sign In</a></li>
+            <li><a th:if="${session.account} == null" href="/account/signOnForm?method=username">Sign In</a></li>
 
             <li><a th:if="${session.account} != null" class="smoothscroll" href="/account/signOut">Sign Out</a></li>
 

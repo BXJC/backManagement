@@ -1,11 +1,9 @@
 package org.csu.mypetstore;
 
+import com.aliyuncs.exceptions.ClientException;
 import org.csu.mypetstore.domain.*;
 import org.csu.mypetstore.persistence.ItemMapper;
-import org.csu.mypetstore.service.AccountService;
-import org.csu.mypetstore.service.CartService;
-import org.csu.mypetstore.service.CatalogService;
-import org.csu.mypetstore.service.OrderService;
+import org.csu.mypetstore.service.*;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,8 @@ class MypetstoreApplicationTests {
 
     @Autowired
     ItemMapper itemMapper;
+
+
 
     @Test
     void contextLoads() {
@@ -79,6 +79,10 @@ class MypetstoreApplicationTests {
         System.out.println ("increment:"+increment);
         itemMapper.updateInventoryQuantity(param);
         System.out.println (itemMapper.getInventoryQuantity (itemId));
+    }
+    @Test
+    void testVcode() throws ClientException {
+        accountService.sendMsg("18956778818");
     }
 
 }

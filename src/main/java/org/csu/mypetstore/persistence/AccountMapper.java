@@ -11,6 +11,8 @@ public interface AccountMapper {
 
     Account getAccountByUsernameAndPassword(Account account);
 
+    Account getAccountByPhonenumber(String phonenumber);
+
     void insertAccount(Account account);
 
     void insertProfile(Account account);

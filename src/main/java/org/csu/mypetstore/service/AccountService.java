@@ -33,6 +33,7 @@ public class AccountService {
         return accountMapper.getAccountByUsernameAndPassword(account);
     }
 
+
     public void insertAccount(Account account) {
         accountMapper.insertSignon(account);
     }
@@ -48,16 +49,47 @@ public class AccountService {
         }
     }
 
-/*    public void sendSms(String mobile) {
-        //生成6位数验证码
-        String checkcode = RandomStringUtils.randomNumeric(6);
-        //验证码存入缓存,为了注册的时候校验验证码是否正确
-        redisTemplate.opsForValue().set("checkcode"+mobile,checkcode,5, TimeUnit.MINUTES);
-        //验证码放入消息队列
-        Map<String,String> map = new HashMap();
-        map.put("mobile",mobile);
-        map.put("checkcode",checkcode);
-        rabbitTemplate.convertAndSend("sms",map);
-    }*/
+        public String sendMsg(String phoneNumber) throws  ClientException {
 
+            String randomNum = "";
+            int num=6;
+            for(int i = 0; i < num;i ++){
+                int randomNumInt = (int)(Math.random() * 10);
+                randomNum += randomNumInt;
+            }
+
+            String jsonContent = "{\"code\":\"" + randomNum + "\"}";
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("phoneNumber", phoneNumber);
+            paramMap.put("msgSign", "CSUDazz宠物商店");
+            paramMap.put("templateCode", "SMS_187261139");
+            paramMap.put("jsonContent", jsonContent);
+
+            SendSmsResponse sendSmsResponse = AliyunMessageUtil.sendSms(paramMap);
+            if((sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))){
+                System.out.println ("发送成功");
+                return randomNum;
+            }
+            else  {
+                System.out.println ("requstsId"+sendSmsResponse.getRequestId ());
+                System.out.println ("code"+sendSmsResponse.getCode ());
+                System.out.println ("message"+sendSmsResponse.getMessage ());
+                System.out.println ("bieid"+sendSmsResponse.getBizId ());
+                if(sendSmsResponse.getCode() == null) {
+                    System.out.println ("发送失败");
+
+                }
+                if(!sendSmsResponse.getCode().equals("OK")) {
+                    System.out.println ("发送失败");
+
+                }
+                return null;
+            }
+
+        }
+
+
+    public Account getAccountByPhoneNumber(String phoneNumber) {
+        return accountMapper.getAccountByPhonenumber (phoneNumber);
+    }
 }

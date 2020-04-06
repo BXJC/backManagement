@@ -1,5 +1,7 @@
 package org.csu.mypetstore.controller;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.service.AccountService;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes({"account","cart"})
+@SessionAttributes({"account","cart","sms"})
 public class AccountController {
 
     @Autowired
@@ -46,8 +48,9 @@ public class AccountController {
     }
 
     @GetMapping("/signOnForm")
-    public String signOnForm(){
-        return "account/signOn.html";
+    public String signOnForm(String method){
+        if(method .equals ("username") ){ return "account/signOn.html";}
+        else {return "account/signOnByPhone.html";}
     }
     @PostMapping("/signOn")
     public String login(String password, String username, Model model) {
@@ -62,6 +65,32 @@ public class AccountController {
             model.addAttribute ("msg", "用户名或密码错误");
             return "account/signOn";
         }
+    }
+
+    @PostMapping("/signOnByPhone")
+    public String loginByPhone(String phoneNumber,@SessionAttribute String sms,String iCode, Model model) {
+        Account account = accountService.getAccountByPhoneNumber (phoneNumber);
+        Cart cart = new Cart();
+        if (account == null) {
+            model.addAttribute ("msg", "用户不存在");
+            return "account/signOn";
+        }
+
+        else if(!sms.equals (iCode))
+        {
+            System.out.println ("sms:"+sms);
+            System.out.println ("icode:"+iCode);
+            model.addAttribute ("msg", "验证码错误");
+            return "account/signOn";
+        }
+
+        else  {
+            model.addAttribute ("account", account);
+            cart = cartService.getCart(account.getUsername ());
+            model.addAttribute("cart",cart);
+            return "catalog/main";
+        }
+
     }
 
     @GetMapping("/signOut")
@@ -84,6 +113,7 @@ public class AccountController {
     @PostMapping("/editUserInfo")
     public String editUserInfo(Account account,String repeatPassword,Model model){
         String msg=null;
+
         if(account.getPassword ().equals (repeatPassword))
         {
             accountService.updateAccount (account);
@@ -106,33 +136,54 @@ public class AccountController {
 
     @GetMapping("/newAccountForm")
     public String newAccountForm(String msg){
+
         return "account/newAccount";
     }
     @PostMapping("/newAccount")
-    public String newAccount(String username,String password,String repeatPassword,Model model){
+    public String newAccount(@SessionAttribute String sms, String username,String password,String repeatPassword,String inputCode,String phoneNumber,Model model){
         Account account=new Account();
         String msg=null;
 
-        if(accountService.getAccount (username)!=null) {
-            msg = "用户名已被使用";
+        if (!sms.equals (inputCode)) {
+            msg = "验证码不正确";
             model.addAttribute ("msg",msg);
-            return "account/newAccount";
+            return  "account/newAccount";
         }
-        else if(password.equals (repeatPassword))
-        {
+        else if (accountService.getAccount (username) != null) {
+            msg = "用户名已被使用";
+            model.addAttribute ("msg", msg);
+            return "account/newAccount";
+        } else if (password.equals (repeatPassword)) {
             account.setUsername (username);
             account.setPassword (password);
+            account.setPhone (phoneNumber);
 
-            accountService.insertAccount(account);
+            accountService.insertAccount (account);
             return "account/signOn";
 
-        }
-        else{
-            msg="两次密码输入不一致";
-            model.addAttribute ("msg",msg);
+        } else {
+            msg = "两次密码输入不一致";
+            model.addAttribute ("msg", msg);
             return "account/newAccount";
-
         }
 
     }
+
+    @GetMapping( "/sendVCode" )
+    @ResponseBody
+    public String sendVCode(String phoneNumber,HttpSession session) throws ClientException {
+        System.out.println ("手机号"+phoneNumber);
+        String sms = accountService.sendMsg (phoneNumber);
+        String msg;
+        System.out.println ("smss:"+sms);
+        if(sms != null){
+            msg = "验证码发送成功";
+            session.setAttribute ("sms",sms);
+        }
+        else {
+            msg = "验证码发送失败";
+        }
+        return msg;
+    }
+
 }

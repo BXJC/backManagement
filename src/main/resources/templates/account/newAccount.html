@@ -31,6 +31,17 @@
                         <td>repeatPassword:</td>
                         <td><input type="password" name="repeatPassword"></td>
                     </tr>
+                    <tr>
+                        <td>phoneNumber:</td>
+                        <td><input type="text" name="phoneNumber" id="phoneNumber"></td>
+                        <div id="phoneMsg"></div>
+                    </tr>
+                    <tr>
+                        <td>verification Code</td>
+                        <td><input type="text" name="inputCode"></td>
+                        <td><input type="button" name="sendVode" value="发送验证码" onclick="sendvcode();"></td>
+                        <div id="vcodeMsg"></div>
+                    </tr>
                     <!--                    <tr>
                                             <td>VerifyCode:</td>
                                             <td><input name="vcode" type="text" class="input02"id="vcode">
