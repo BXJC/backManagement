@@ -47,6 +47,12 @@
     WHERE USERNAME= #{username}
   </update>
 
+    <update id="updatePassword" parameterType="Account">
+   UPDATE SUPPLIERSIGNON SET
+      PASSWORD = #{password}
+    WHERE USERNAME= #{username}
+  </update>
+
     <insert id="insertAccount" parameterType="Account">
     INSERT INTO SUPPLIER
       (name, status,  ADDR1, ADDR2, CITY, STATE, ZIP,  PHONE)
@@ -58,7 +64,6 @@
     INSERT INTO SUPPLIERSIGNON (PASSWORD,USERNAME,PHONENUMBER)
     VALUES (#{password}, #{username},#{phone})
   </insert>
-
 
     <update id="updateSignon" parameterType="account">
     UPDATE SUPPLIERSIGNON SET PASSWORD = #{password}

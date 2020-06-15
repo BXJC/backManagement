@@ -31,4 +31,6 @@ public interface AccountMapper {
     Account checkPhone(String phone);
 
     Account getSignOnByUsername(String username);
+
+    void updatePassword(Account account);
 }

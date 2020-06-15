@@ -97,4 +97,8 @@ public class AccountService {
             return true;
         else return false;
     }
+
+    public void updatePassword(Account account) {
+        accountMapper.updatePassword (account);
+    }
 }

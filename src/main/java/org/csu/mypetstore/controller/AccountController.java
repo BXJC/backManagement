@@ -60,6 +60,12 @@ public class AccountController {
 //        Account account=null;
         accountService.updateAccount (account);
     }
+    @RequestMapping(value = "/password", method = RequestMethod.PATCH,produces="application/Json;charset=UTF-8")
+    public void updatePassword(@RequestBody Account account){
+//        Account account=null;
+        account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
+        accountService.updatePassword (account);
+    }
 
     @PostMapping(value = "/login", produces="application/Json;charset=UTF-8" )
     @ResponseBody
