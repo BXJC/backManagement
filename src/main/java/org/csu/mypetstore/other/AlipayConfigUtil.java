@@ -21,13 +21,13 @@ public class AlipayConfigUtil {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6MTP7oCy3A7Bl89IQwybd77Kg7D3Ed46oZoqL8AlooWs5sP+v26GK9ZUlE5M3qyqU5KjLsqIfm1wkGxsEvCm441wcyl9JtFs6rk5sTRmVRbeSnI02EbIWIKyyn8ICt+R3FuphF3QGnKszgFH9rpf7YfxWQRrYA/eGEv2+znyiTUEwQAmxq62rxIwMDPA9pyRgJY9jvmM1EFi2Jwn1RSBKTmFhjy2RWCMNc6Gh9Xj6bk9UvX5WekldL36/3Wi89IHqZ91goY8YR9isZgvtqXz1Mz9qVUPjYYbF0mPeIZKPjheyqLAV+w4+je3gj4PSljSZUc6u8JyJ5enpb6jHEkbwIDAQAB";/**
      * 返回的时候此页面不会返回到用户页面，只会执行你写到控制器里的地址
      */
-    public static String notify_url="http://30c7c19239.wicp.vip/alipay/notify_url";
+    public static String notify_url="http://39.98.45.50/alipay/notify_url";
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
     /**
      * 此页面是同步返回用户页面，也就是用户支付后看到的页面，上面的notify_url是异步返回商家操作，谢谢
      * 要是看不懂就找度娘，或者多读几遍，或者去看支付宝第三方接口API，不看API直接拿去就用，遇坑不怪别人,要使用外网能访问的ip,建议使用花生壳,内网穿透
      */
-    public static String return_url = "http://30c7c19239.wicp.vip/alipay/aliCallback";
+    public static String return_url = "http://39.98.45.50/alipay/aliCallback";
     // 签名方式
     public static String sign_type = "RSA2";
     // 字符编码格式

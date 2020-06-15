@@ -1,5 +1,7 @@
 package org.csu.mypetstore.controller;
 
+import com.google.gson.annotations.JsonAdapter;
+import org.csu.mypetstore.other.ResultBody;
 import org.springframework.util.DigestUtils;
 import com.aliyuncs.exceptions.ClientException;
 import org.csu.mypetstore.domain.Account;
@@ -17,14 +19,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Controller
-@RequestMapping("/account")
+//注解，说明这是一个Controller类
+@RestController
+//接收所有的/accoount下的url的请求
+@RequestMapping("/users")
+//将account、cart、sms与session中的同名属性绑定
 @SessionAttributes({"account","cart","sms"})
-public class AccountController {
+@CrossOrigin
 
+
+public class AccountController {
+    //注解；将项目中的AccountService对象自动注入accountService中
     @Autowired
     AccountService accountService;
-
+    //注解，同上
     @Autowired
     CartService cartService;
 
@@ -47,136 +55,41 @@ public class AccountController {
         categoryList = Collections.unmodifiableList(catList);
     }
 
-    @GetMapping("/signOnForm")
-    public String signOnForm(String method,Model model){
-        if(method .equals ("username") ){ return "account/signOn.html";}
-        else {
-            model.addAttribute ("sms","notexit");
-            return "account/signOnByPhone.html";}
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.PUT,produces="application/Json;charset=UTF-8")
+    public void updateAccount(@RequestBody Account account){
+//        Account account=null;
+        accountService.updateAccount (account);
     }
-    @PostMapping("/signOn")
-    public String login(String password, String username, Model model) {
+
+    @PostMapping(value = "/login", produces="application/Json;charset=UTF-8" )
+    @ResponseBody
+    public Account doInsert(@RequestParam("username") String username,@RequestParam("password") String  password) {
         Account account = accountService.getAccount (username,DigestUtils.md5DigestAsHex(password.getBytes()));
-
-        Cart cart = new Cart();
-        if (account != null) {
-            model.addAttribute ("account", account);
-            cart = cartService.getCart(username);
-            model.addAttribute("cart",cart);
-            return "catalog/main";
-        } else {
-            model.addAttribute ("msg", "用户名或密码错误");
-            return "account/signOn";
-        }
-    }
-    @PostMapping("/signOnByPhone")
-    public String loginByPhone(String phoneNumber,@SessionAttribute String sms,String iCode, Model model) {
-        Account account = accountService.getAccountByPhoneNumber (phoneNumber);
-        Cart cart = new Cart();
-        if (account == null) {
-            model.addAttribute ("msg", "用户不存在");
-            return "account/signOn";
-        }
-
-        else if(!sms.equals (iCode))
-        {
-            System.out.println ("sms:"+sms);
-            System.out.println ("icode:"+iCode);
-            model.addAttribute ("msg", "验证码错误");
-            return "account/signOn";
-        }
-
-        else  {
-            model.addAttribute ("account", account);
-            cart = cartService.getCart(account.getUsername ());
-            model.addAttribute("cart",cart);
-            return "catalog/main";
-        }
-    }
-    @GetMapping("/signOut")
-    public String signOff(Model model,SessionStatus sessionStatus) {
-        model.addAttribute("account",null);
-        model.addAttribute("cart",null);
-        sessionStatus.setComplete();
-
-        return "catalog/main";
+        System.out.println ("接受到请求");
+        System.out.println (account);
+        return account;
     }
 
-    @GetMapping("/editUserInfoForm")
-    public String  editUserInfoForm(@SessionAttribute("account") Account account, Model model){
-        model.addAttribute ("account",account);
-        model.addAttribute("languageList",languageList);
-        model.addAttribute("categoryList",categoryList);
-        System.out.println(account);
-        return "account/editAccount";
+    @GetMapping(value = "/users/phonenumber/{phonenumber}", produces="application/Json;charset=UTF-8" )
+    @ResponseBody
+    public Account getAccountByPhone(@PathVariable("phonenumber")String phonenumber) {
+        Account account = accountService.getAccountByPhoneNumber (phonenumber);
+       return account;
     }
-    @PostMapping("/editUserInfo")
-    public String editUserInfo(Account account,String repeatPassword,Model model){
-        String msg=null;
-
-        if(account.getPassword ().equals (repeatPassword))
-        {
-            account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword ().getBytes()));
-            accountService.updateAccount (account);
-            msg="修改成功";
-            model.addAttribute ("account",account);
-            model.addAttribute ("msg",msg);
-            return "account/editAccount";
-
-        }
-        else {
-            model.addAttribute ("account",account);
-            System.out.println (account.getPassword ());
-            System.out.println (repeatPassword);
-            msg="两次输入密码不一致";
-            model.addAttribute ("msg",msg);
-            return "account/editAccount";
-        }
-
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET,produces="application/Json;charset=UTF-8")
+    public Account getAccountByusername(@PathVariable("username")String username){
+        Account account=accountService.getAccountByUsername (username);
+        return account;
     }
 
-    @GetMapping("/newAccountForm")
-    public String newAccountForm(String msg){
-
-        return "account/newAccount";
+    @PostMapping(value = "/", produces="application/Json;charset=UTF-8" )
+    @ResponseBody
+//    @RequestMapping(value = "/", method = RequestMethod.POST,produces="application/Json;charset=UTF-8")
+    public void insertAccount(@RequestBody Account account ){
+        account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword ().getBytes()));
+        accountService.insertAccount (account);
     }
 
-    @PostMapping("/newAccount")
-    public String newAccount(@SessionAttribute String sms, String username,String password,String repeatPassword,String inputCode,String phoneNumber,Model model){
-        Account account=new Account();
-        String msg=null;
-
-        if (!sms.equals (inputCode)) {
-            msg = "验证码不正确";
-            model.addAttribute ("msg",msg);
-            return  "account/newAccount";
-        }
-        else if(accountService.checkPhone (phoneNumber)){
-            msg = "手机号已被注册";
-            model.addAttribute ("msg", msg);
-            return "account/newAccount";
-        }
-        else if (accountService.getAccount (username) != null) {
-            msg = "用户名已被使用";
-            model.addAttribute ("msg", msg);
-            return "account/newAccount";
-        } else if (password.equals (repeatPassword)) {
-            account.setUsername (username);
-            account.setPassword (DigestUtils.md5DigestAsHex(password.getBytes()));
-            account.setPhone (phoneNumber);
-
-            accountService.insertAccount (account);
-            return "account/signOn";
-
-        }
-
-        else {
-            msg = "两次密码输入不一致";
-            model.addAttribute ("msg", msg);
-            return "account/newAccount";
-        }
-
-    }
 
     @GetMapping( "/sendVCode" )
     @ResponseBody

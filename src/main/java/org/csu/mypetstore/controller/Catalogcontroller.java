@@ -31,26 +31,15 @@ public class Catalogcontroller {
 
     @GetMapping("/view")
     public String view(Model model, HttpSession session, HttpServletResponse response){
-
-        Cookie cookie=new Cookie("sessionId",session.getId ());
-        System.out.println ("sessionId:"+session.getId());
-        cookie.setPath ("/");
-        cookie.setMaxAge(7 * 24 * 60 * 60);
-
-        response.addCookie(cookie);
         model.addAttribute("account",null);
         return "catalog/main";
     }
-
-    @GetMapping("/viewCategory")
-    public String viewCategory(String categoryId, Model model){
-        Category category=catalogService.getCategory (categoryId);
-        List<Product> products=catalogService.getProductListByCategory (categoryId);
-        model.addAttribute ("category",category);
-        model.addAttribute ("productList",products);
-        System.out.println ("account:");
-
-        return "catalog/category";
+    @GetMapping(value = "/Categorys/{id}", produces="application/Json;charset=UTF-8" )
+    @ResponseBody
+    public List<Product> viewCategory(@PathVariable("id") String id){
+        Category category=catalogService.getCategory (id);
+        List<Product> products=catalogService.getProductListByCategory (id);
+        return products;
     }
     @GetMapping("/viewProduct")
     public String viewProduct(String productId,Model model){
@@ -58,7 +47,6 @@ public class Catalogcontroller {
         List<Item> items=catalogService.getItemListByProduct (productId);
         model.addAttribute ("product",product);
         model.addAttribute ("itemList",items);
-
 
         return "catalog/product";
     }
@@ -70,7 +58,6 @@ public class Catalogcontroller {
         System.out.println ("发送请求成功");
         return productList;
     }
-
     @PostMapping("/searchProducts")
     public String searchProduct(String keyword,Model model){
         List<Product> products=catalogService.searchProductList (keyword);

@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:replace="common/Top">
+<div th:replace="common/top">
 
 </div>
 
@@ -18,8 +18,7 @@
             <form action="/account/signOn" method="post">
                 <font size="3" color="red" th:text="${msg}"></font>
                 <table>
-                    <tr>
-                        <td>Username:</td>
+                        <td>changeusernaem:</td>
                         <td><input type="text" name="username" value="a" autocomplete="off"/></td>
                     </tr>
                     <tr>
@@ -41,7 +40,7 @@
 
 
 
-<div th:replace="common/Bottom">
+<div th:replace="common/bottom">
 
 </div>
 </body>
