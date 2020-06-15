@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="../image/x-icon">
+    <link rel="icon" href="favicon.ico" type="../image/x-icon">
+    <script src="../js/autoComplete.js" th:inline="javascript"></script>
+    <script src="../js/sendVerificationCode.js" th:inline="javascript"></script>
+
+</head>
+<body>
+<header th:fragment="header" class="header">
+
+    <div class="header-logo">
+        <a href="../index.html">PETSTORE</a>
+    </div>
+
+    <nav id="header-nav-wrap">
+        <form action="/catalog/searchProducts" method="post" name="autoCompleteForm" class="search-container">
+            <input type="text" style="float: right" name="keyword" id="keyword" list="products" size="14" onkeyup="completeItemList();"/>
+            <datalist id="products"></datalist>
+            <input type="submit" class="search button button-primary cta "  name="searchProducts" value="Search"  style="float:left"/>
+        </form>
+
+        <ul class="header-main-nav">
+            <li class="current"><a class="smoothscroll"  href="/catalog/view" title="home">Home</a></li>
+
+            <li><a th:if="${session.account} != null" class="smoothscroll"  href="/cart/viewCart" title="about">My Cart</a></li>
+
+            <li><a th:if="${session.account} == null" href="/account/signOnForm?method=username">Sign In</a></li>
+
+            <li><a th:if="${session.account} != null" class="smoothscroll" href="/account/signOut">Sign Out</a></li>
+
+            <li><a th:if="${session.account} != null" class="smoothscroll"  href="/account/editUserInfoForm">My Account</a></li>
+
+            <li><a href="../help.html" class="smoothscroll" >Help</a> </li>
+
+        </ul>
+
+    </nav>
+    <ul class="home-social-list">
+        <li style="display: inline">
+            <a href="/catalog/viewCategory?categoryId=FISH"><p6>fish</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="/catalog/viewCategory?categoryId=DOGS"><p6>dogs</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="/catalog/viewCategory?categoryId=REPTILES"><p6>reptiles</p6></a>
+        </li >
+        <li style="display: inline">
+            <a href="/catalog/viewCategory?categoryId=CATS"><p6>cats</p6></a>
+        </li>
+        <li style="display: inline">
+            <a href="/catalog/viewCategory?categoryId=BIRDS"><p6>birds</p6></a>
+        </li>
+
+    </ul>
+
+</header>
+
+
+</body>
+</html>

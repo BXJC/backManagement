@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head >
+    <meta charset="UTF-8" >
+    <title>Title</title>
+</head>
+<body>
+ <div th:replace="common/top">
+
+ </div>
+ <section class="pricing" >
+     <div class="row pricing-content">
+
+         <div class="col-four pricing-intro">
+
+             <h2><br>My Order List</h2>
+
+             <table>
+                 <tr>
+                     <th>Order ID</th>
+                     <th>Time</th>
+                 </tr>
+                 <tr th:each="order:${orderList}">
+                     <td>
+                         <a th:href="@{/order/viewOldOrder(orderId=${order.orderId})}" th:text="${order.orderId}">orderId</a>
+                     </td>
+                     <td th:text="${order.orderDate}">
+
+                     </td>
+                 </tr>
+             </table>
+         </div>
+
+         <div class="home-scrolldown">
+             <a href="/account/editUserInfoForm" class="scroll-icon smoothscroll">
+                 <span>Return to My Account</span>
+                 <i class="icon-arrow-right" aria-hidden="true"></i>
+             </a>
+
+         </div>
+     </div>
+ </section>
+
+ <div th:replace="common/bottom">
+
+ </div>
+</body>
+</html>

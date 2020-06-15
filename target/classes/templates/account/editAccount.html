@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/top">
+</div>
+<section class="pricing" >
+    <div class="row pricing-content">
+
+        <div class="col-four pricing-intro">
+            <h1 class="intro-header" data-aos="fade-up">My Account</h1>
+
+            <p data-aos="fade-up">
+            <p th:text="${msg}"></p>
+            <form action="/account/editUserInfo" method="Post" th:object="${account}" >
+                <h3>User Information</h3>
+                <table>
+                    <tr>
+                        <td>User ID:</td>
+                        <td th:text="*{username}"></td>
+                    </tr>
+                    <tr>
+                        <td>New password:</td>
+                        <td>
+                            <input type="password" size="30" th:field="*{password}" name="password"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Repeat password:</td>
+                        <td><input type="password" size="30" name="repeatPassword"/></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td>First name:</td>
+                        <td>
+                            <input type="text" size="30"name="account.firstName" th:field="*{firstName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td>
+                            <input type="text"size="30" name="account.lastName" th:field="*{lastName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>
+                            <input type="text" size="30" name="account.email" th:field="*{email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td>
+                            <input type="text" size="30"name="account.phone" th:field="*{phone}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address 1:</td>
+                        <td>
+                            <input type="text" size="30"name="account.address1" th:field="*{address1}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address 2:</td>
+                        <td>
+                            <input type="text"size="30" name="account.address2" th:field="*{address2}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>City:</td>
+                        <td>
+                            <input type="text" size="30"name="account.city" th:field="*{city}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>State:</td>
+                        <td>
+                            <input type="text" size="30" name="account.state" th:field="*{state}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zip:</td>
+                        <td>
+                            <input type="text" size="30" name="account.zip" th:field="*{zip}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Country:</td>
+                        <td>
+                            <input type="text" size="30" name="account.country"th:field="*{country}"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <h3>Profile Information</h3>
+
+                <table>
+                    <tr>
+                        <td>Language Preference:</td>
+                        <td>
+                            <select th:field="*{languagePreference}" name="account.languagePreference">
+                                <option th:each="language:${languageList}" th:value="${language}" th:text="${language}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Favourite Category:</td>
+                        <td>
+                            <select th:field="*{favouriteCategoryId}" name="account.favouriteCategoryId">
+                                <option th:each="category:${categoryList}" th:value="${category}" th:text="${category}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable MyList</td>
+                        <td>
+                            <input th:if="*{listOption} ne null " type="checkbox" value="true" name="${listOption}" checked="checked">
+                            <input th:if="*{listOption} eq null " type="checkbox" value="true" name="${listOption}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable MyBanner</td>
+                        <td>
+                            <input th:if="*{bannerName} ne null " type="checkbox" value="true" name="${listOption}" checked="checked">
+                            <input th:if="*{bannerName} eq null " type="checkbox" value="true" name="${listOption}" >
+                        </td>
+                    </tr>
+
+                </table>
+
+                <input type="submit" name= "editAccount" class="button button-primary large" value="Save Account Information">
+            </form>
+            <a href="/log/viewOrderLog">My Orders</a>
+            <a href="/log/viewLog">My Log</a>
+            </p>
+        </div>
+    </div>
+</section>

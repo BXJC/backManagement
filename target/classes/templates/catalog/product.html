@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/top">
+
+</div>
+
+<section class="pricing" style="height: 900px">
+
+    <div class="col-ten pricing-table">
+        <div class="row">
+            <div class="col-eleven plan-wrap">
+                <div class="plan-block primary" data-aos="fade-up">
+
+                    <div class="plan-top-part">
+                        <p class="plan-block-price" th:text="${product.name}">productname</p>
+                    </div>
+                    <div class="plan-bottom-part">
+
+
+                        <table>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Product ID</th>
+                                <th>Description</th>
+                                <th>List Price</th>
+       <!--                         <th th:text="${}">&nbsp;${sessionScope.qty}</th>-->
+                            </tr>
+
+                            <tr th:each="item:${itemList}">
+                                    <td>
+                                        <a th:if="${session.account} != null " th:href="@{/catalog/viewItem(itemId=${item.itemId})}"><p2 th:text="${item.itemId}">itemId</p2></a>
+                                        <a th:if="${session.account} == null " th:href="@{/catalog/viewItem(itemId=${item.itemId})}"><p2 th:text="${item.itemId}">itemId</p2></a>
+
+                                    </td>
+                                    <td>
+                                        <p3 th:text="${item.product.productId}">productId</p3>
+                                    </td>
+                                    <td>
+                                        <p3 th:text="${item.attribute1} ">
+                                            itemInfo
+                                        </p3>
+                                    </td>
+
+
+                                    <td>
+                                        <p3 th:text="'$'+${#numbers.formatDecimal(item.listPrice,1,2)}">listpeice</p3>
+
+                                    </td>
+                                    <td>
+
+                                        <a th:if="${session.account!= null }" th:href="@{/cart/addToCart(itemId=${item.itemId})}">add to cart</a>
+                                        <a th:if="${ session.account == null }" href="/account/signOnForm?method=username">Add to Cart</a>
+                                    </td>
+
+                                </tr>
+
+                        </table>
+                    </div>
+
+
+                    <!-- end home-social-list -->
+
+                    <div class="home-scrolldown">
+                        <a th:href="@{/catalog/viewCategory(categoryId=${product.categoryId})}" class="scroll-icon smoothscroll">
+                            <span th:text="'Return to'+ ${product.categoryId}+'->'">Return to ${sessionScope.product.categoryId}-></span>
+                        </a>
+                    </div>
+                </div>
+            </div> <!-- end plan-wrap -->
+
+        </div>
+
+    </div> <!-- end pricing-table -->
+    <!-- end pricing-content -->
+</section> <!-- end pricing -->
+
+<div th:replace="common/bottom">
+
+</div>
+</body>
+</html>
+</html>

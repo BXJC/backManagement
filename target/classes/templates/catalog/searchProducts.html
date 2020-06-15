@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:replace="common/top">
+</div>
+
+<div id="Catalog">
+    <section class="pricing" style="height: 900px">
+
+        <div class="col-ten pricing-table">
+
+            <div class="col-eleven plan-wrap" >
+                <div class="plan-block " data-aos="fade-up">
+
+                    <div class="plan-bottom-part">
+                        <table>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Product ID</th>
+                                <th>Name</th>
+                            </tr>
+
+                            <tr th:each="product:${productList}">
+                                <td>
+                                    <img th:src=" ${product.descriptionImage}">
+                                    <label th:text="${product.descriptionText}"></label>
+                                </td>
+                                <td>
+                                    <b th:text="${product.productId}">productId</b>
+                                </td>
+                                <td th:text="${product.name}">productName</td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="common/bottom">
+
+</div>
+</body>
+</html>
