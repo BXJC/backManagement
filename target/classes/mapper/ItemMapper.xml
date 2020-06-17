@@ -30,6 +30,7 @@
     <select id="getItem" parameterType="string" resultType="Item">
     select
       I.ITEMID,
+      I.PRODUCTID,
       LISTPRICE,
       UNITCOST,
       SUPPLIER AS supplierId,
@@ -61,5 +62,35 @@
       QTY = QTY - #{increment}
     WHERE ITEMID = #{itemId}
   </update>
+
+  <insert id="insertItem" parameterType="Item">
+    INSERT INTO
+    ITEM
+    VALUES
+    (#{username}, #{status}, #{address1},  #{address2,jdbcType=VARCHAR}, #{city}, #{state}, #{zip}, #{phone})
+  </insert>
+  
+  <update id="updateItem" parameterType="Item">
+    update
+    ITEM
+    SET
+    listprice = #{listprice},
+    unitcost = #{unitCost},
+    status = #{status},
+    attr1 = #{attribute1},
+    attr2 = #{attribute2},
+    attr3 = #{attribute3},
+    attr4 = #{attribute4},
+    attr5 = #{attribute5}
+    where itemId = #{itemId}
+  </update>
+
+  <delete id="deleteItem" parameterType="Item">
+    delete
+    from
+    ITEM
+    where
+    itemId = #{itemId}
+  </delete>
 
 </mapper>

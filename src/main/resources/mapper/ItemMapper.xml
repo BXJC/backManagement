@@ -30,6 +30,7 @@
     <select id="getItem" parameterType="string" resultType="Item">
     select
       I.ITEMID,
+      I.PRODUCTID,
       LISTPRICE,
       UNITCOST,
       SUPPLIER AS supplierId,

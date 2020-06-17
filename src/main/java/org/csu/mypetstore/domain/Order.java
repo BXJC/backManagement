@@ -255,28 +255,6 @@ public class Order implements Serializable {
         return lineItems;
     }
 
-    public void initOrder(Account account, Cart cart) {
-
-        username = account.getUsername();
-        orderDate = new Date();
-
-        totalPrice = cart.getSubTotal();
-
-        creditCard = "999 9999 9999 9999";
-        expiryDate = "12/03";
-        cardType = "Visa";
-        courier = "UPS";
-        locale = "CA";
-        status = "P";
-
-        Iterator<CartItem> i = cart.getAllCartItems();
-        while (i.hasNext()) {
-            CartItem cartItem = i.next();
-            addLineItem(cartItem);
-        }
-
-    }
-
     public void addLineItem(CartItem cartItem) {
         LineItem lineItem = new LineItem(lineItems.size() + 1, cartItem);
         addLineItem(lineItem);

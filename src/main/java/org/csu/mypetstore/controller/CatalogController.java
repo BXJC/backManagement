@@ -60,8 +60,8 @@ public class CatalogController {
 
     private void processProductDescription(Product product){
         String [] temp = product.getDescription().split("\\|");
-        product.setDescriptionImage(temp[1]);
-        product.setDescriptionText(temp[2].substring(1));
+        product.setDescriptionImage(temp[0]);
+        product.setDescriptionText(temp[1]);
     }
     private void processProductDescription(List<Product> productList){
         for(Product product : productList) {
