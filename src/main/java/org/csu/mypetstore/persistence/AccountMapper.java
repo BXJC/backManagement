@@ -9,9 +9,6 @@ public interface AccountMapper {
 
     Account getSignOnByUsernameAndPassword(Account account);
 
-    Account getAccountByUsernameAndPassword(Account account);
-    
-
     void insertAccount(Account account);
 
     void insertProfile(Account account);

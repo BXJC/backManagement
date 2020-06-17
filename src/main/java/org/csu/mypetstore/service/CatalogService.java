@@ -35,18 +35,25 @@ public class CatalogService {
         return productMapper.getProductListByCategory(categoryId);
     }
 
-    public List<Product> searchProductList(String keyword) {
-        return productMapper.searchProductList("%" + keyword.toLowerCase() + "%");
-    }
 
     public List<Item> getItemListByProduct(String productId) {
         return itemMapper.getItemListByProduct(productId);
     }
 
     public Item getItem(String itemId) {
-        Item item = itemMapper.getItem(itemId);
-        return item;
+        return itemMapper.getItem(itemId);
+    }
 
+    public void insertItem(Item item){
+        itemMapper.insertItem(item);
+    }
+
+    public void updateItem(Item item){
+        itemMapper.updateItem(item);
+    }
+
+    public void deleteItem(Item item){
+        itemMapper.deleteItem(item);
     }
 
     public boolean isItemInStock(String itemId) {

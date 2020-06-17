@@ -8,7 +8,6 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 
 import org.csu.mypetstore.domain.Order;
 import org.csu.mypetstore.other.AlipayConfigUtil;
-import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +35,6 @@ public class AlipayIumpSum {
 
     @Autowired
     CatalogService catalogService;
-
-    @Autowired
-    CartService cartService;
 
     @GetMapping("/pay")
     public Object alipayIumpSum(Model model, @SessionAttribute("order") Order order, HttpSession session, HttpServletResponse response)

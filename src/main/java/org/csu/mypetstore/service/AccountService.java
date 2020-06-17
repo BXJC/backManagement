@@ -29,9 +29,7 @@ public class AccountService {
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(password);
-        if(accountMapper.getAccountByUsernameAndPassword(account) == null)
-            return accountMapper.getSignOnByUsernameAndPassword(account);
-        return accountMapper.getAccountByUsernameAndPassword(account);
+        return accountMapper.getSignOnByUsernameAndPassword(account);
     }
 
     public void insertAccount(Account account) {
@@ -41,9 +39,6 @@ public class AccountService {
     public void updateAccount(Account account) {
         accountMapper.updateAccount(account);
         System.out.println (account.getCity ());
-//        if (account.getPassword() != null && account.getPassword().length() > 0) {
-//            accountMapper.updateSignon(account);
-//        }
     }
 
     public String sendMsg(String phoneNumber) throws  ClientException {
@@ -86,7 +81,7 @@ public class AccountService {
 
     public Account getAccountByPhoneNumber(String phoneNumber) {
         Account account = new Account();
-        account.setPhone (phoneNumber);
+        account.setPhone(phoneNumber);
         if(accountMapper.getAccountByPhone(account) == null)
             return accountMapper.getSignOnByPhone(account);
         return accountMapper.getAccountByPhone(account);

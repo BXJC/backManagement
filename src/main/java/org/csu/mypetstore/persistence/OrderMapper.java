@@ -10,7 +10,6 @@ public interface OrderMapper {
 
     Order getOrder(int orderId);
 
-    void insertOrder(Order order);
+    List<Order> getOrders();
 
-    void insertOrderStatus(Order order);
 }
