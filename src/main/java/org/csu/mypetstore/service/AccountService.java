@@ -19,7 +19,7 @@ public class AccountService {
 
     public Account getAccountByUsername(String username) {
         Account account = accountMapper.getAccountByUsername(username);
-        if(accountMapper.getAccountByUsername(username) == null){
+        if(account == null){
             return accountMapper.getSignOnByUsername(username);
         }
         return accountMapper.getAccountByUsername(username);
@@ -85,6 +85,7 @@ public class AccountService {
         if(accountMapper.getAccountByPhone(account) == null)
             return accountMapper.getSignOnByPhone(account);
         return accountMapper.getAccountByPhone(account);
+
     }
 
     public boolean checkPhone(String phoneNumber) {

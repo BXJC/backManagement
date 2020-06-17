@@ -14,7 +14,7 @@
         AND PASSWORD = #{password}
     </select>
 
-    <select id="getAccountByUsername" parameterType="string" resultType="Account">
+    <select id="getSignOnByUsername" parameterType="string" resultType="Account">
         SELECT
           *
         FROM
@@ -23,13 +23,31 @@
         SUPPLIERSIGNON.USERNAME = #{username}
   </select>
 
-    <select id="getAccountByPhone" parameterType="string" resultType="Account">
+    <select id="getAccountByUsername" parameterType="string" resultType="Account">
+        SELECT
+          *
+        FROM
+        SUPPLIER
+        WHERE
+        SUPPLIER.USERNAME = #{username}
+  </select>
+
+    <select id="getSignOnByPhone" parameterType="Account" resultType="Account">
     SELECT
           *
         FROM
         SUPPLIERSIGNON
         WHERE
         SUPPLIERSIGNON.PHONENUMBER = #{phone}
+  </select>
+
+    <select id="getAccountByPhone" parameterType="Account" resultType="Account">
+    SELECT
+          *
+        FROM
+        SUPPLIER
+        WHERE
+        SUPPLIER.PHONE = #{phone}
   </select>
 
     <update id="updateAccount" parameterType="Account">
@@ -77,22 +95,4 @@
     UPDATE SUPPLIERSIGNON SET PASSWORD = #{password}
     WHERE USERNAME = #{username}
   </update>
-
-    <select id="getSignOnByUsername"  resultType="Account">
-        SELECT
-        *
-        FROM
-        SUPPLIERSIGNON
-        WHERE
-        USERNAME = #{username}
-    </select>
-
-    <select id="getSignOnByPhone" parameterType="Account" resultType="Account">
-        SELECT
-        *
-        FROM
-        SIGNON
-        WHERE
-        PHONE = #{phone}
-    </select>
 </mapper>

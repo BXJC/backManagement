@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
     Account getAccountByUsername(String username);
 
+    Account getSignOnByUsername(String username);
+
+    Account getAccountByPhone(Account account);
+
+    Account getSignOnByPhone(Account account);
+
     Account getSignOnByUsernameAndPassword(Account account);
 
     void insertAccount(Account account);
@@ -21,13 +27,7 @@ public interface AccountMapper {
 
     void updateSignon(Account account);
 
-    Account getAccountByPhone(Account account);
-
-    Account getSignOnByPhone(Account account);
-
     Account checkPhone(String phone);
-
-    Account getSignOnByUsername(String username);
 
     void updatePassword(Account account);
 }
