@@ -21,7 +21,7 @@ import java.util.List;
 
 //注解，说明这是一个Controller类
 @RestController
-//接收所有的/accoount下的url的请求
+//接收所有的/account下的url的请求
 @RequestMapping("/users")
 //将account、cart、sms与session中的同名属性绑定
 @SessionAttributes({"account","cart","sms"})
