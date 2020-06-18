@@ -12,4 +12,5 @@ public interface OrderMapper {
 
     List<Order> getOrders();
 
+    void updateOrderStatus(Order order);
 }

@@ -24,6 +24,10 @@ public class CatalogService {
     @Autowired
     ItemMapper itemMapper;
 
+    public List<Category> getCategories(){
+        return categoryMapper.getCategoryList();
+    };
+
     public Category getCategory(String categoryId) {
         return categoryMapper.getCategory(categoryId);
     }
@@ -54,6 +58,18 @@ public class CatalogService {
 
     public void deleteItem(Item item){
         itemMapper.deleteItem(item);
+    }
+
+    public void insertProduct(Product product){
+        productMapper.insertProduct(product);
+    }
+
+    public void updateProduct(Product product){
+        productMapper.updateProduct(product);
+    }
+
+    public void deleteProduct(Product product){
+        productMapper.deleteProduct(product);
     }
 
     public boolean isItemInStock(String itemId) {

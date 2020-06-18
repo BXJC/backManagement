@@ -17,7 +17,13 @@ public enum ResultCode {
     PhoneNotFound(10003,"手机号不存在"),
     UserInfoNotComplete(10004,"用户信息不完整"),
     VerifyCodeNotSend(10005,"验证码发送失败"),
-    NoInfoFind(10006,"没有查询到相关信息");
+    NoInfoFind(10006,"没有查询到相关信息"),
+    ArrayIndexOutOfBoundEx(10007,"数组越界错误"),
+    NullPointerEx(10008,"空指针错误"),
+    ClassCastEx(10009,"类型强转错误"),
+    IOEx(10010,"IO错误"),
+    SQLEx(10011,"数据库操作错误"),
+    UnknownEx(10012,"未知错误");
 
     private int code;
     private String message;

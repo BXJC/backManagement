@@ -23,6 +23,21 @@ public class CatalogController {
     @Autowired
     CatalogService catalogService;
 
+    @GetMapping(value = "/categories", produces = "application/Json;charset=UTF-8")
+    public AppResult<List<Category>> getCategories(){
+        AppResult<List<Category>> appResult = new AppResult<>();
+        List<Category> categories = catalogService.getCategories();
+        if (categories.size() == 0)
+        {
+            appResult = ResultBuilder.fail(ResultCode.NoInfoFind);
+        }
+        else
+        {
+            appResult = ResultBuilder.successData(ResultCode.OK,categories);
+        }
+        return appResult;
+    }
+
     @GetMapping(value = "/categories/{catId}/products", produces="application/Json;charset=UTF-8" )
     public AppResult<List<Product>> viewCategory(@PathVariable("catId") String id){
         AppResult<List<Product>> appResult = new AppResult<>();
@@ -69,6 +84,30 @@ public class CatalogController {
             appResult = ResultBuilder.successData(ResultCode.OK,item);
         }
         System.out.println ("quantity"+item.getQuantity ());
+        return appResult;
+    }
+
+    @PostMapping(value = "/products", produces = "application/Json;charset=UTF-8")
+    public AppResult<Null> addProduct(@RequestBody Product product){
+        AppResult<Null> appResult = new AppResult<>();
+        catalogService.insertProduct(product);
+        appResult = ResultBuilder.successNoData(ResultCode.Handled);
+        return appResult;
+    }
+
+    @PutMapping(value = "/products",produces = "application/Json;charset=UTF-8")
+    public AppResult<Null> updateProduct(@RequestBody Product product){
+        AppResult<Null> appResult = new AppResult<>();
+        catalogService.updateProduct(product);
+        appResult = ResultBuilder.successNoData(ResultCode.Handled);
+        return appResult;
+    }
+
+    @DeleteMapping(value = "/products" ,produces = "application/Json;charset=UTF-8")
+    public AppResult<Null> deleteProduct(@RequestBody Product product){
+        AppResult<Null> appResult = new AppResult<>();
+        catalogService.deleteProduct(product);
+        appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 

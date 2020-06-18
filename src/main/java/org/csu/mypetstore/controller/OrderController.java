@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -36,11 +37,19 @@ public class OrderController {
         return appResult;
     }
 
-    @GetMapping("/view/{id}")
+    @GetMapping(value = "/view/{id}",produces = "application/Json;charset=UTF-8")
     public AppResult<Order> viewOrder(@PathVariable("id") int orderId){
         AppResult<Order> appResult = new AppResult<>();
         Order order = orderService.getOrder(orderId);
         appResult = ResultBuilder.successData(ResultCode.OK,order);
+        return appResult;
+    }
+
+    @PatchMapping(value = "/view/{id}",produces = "application/Json;charset=UTF-8")
+    public AppResult<Null> updateOrderStatus(@PathVariable("id") int orderId,@RequestBody Order order){
+        AppResult<Null> appResult = new AppResult<>();
+        orderService.updateOrderStatus(order);
+        appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 }

@@ -56,4 +56,7 @@ public class OrderService {
         return sequence.getNextId();
     }
 
+    public void updateOrderStatus(Order order){
+        orderMapper.updateOrderStatus(order);
+    }
 }
