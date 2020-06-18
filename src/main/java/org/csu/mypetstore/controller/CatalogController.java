@@ -9,8 +9,6 @@ import org.csu.mypetstore.other.ResultCode;
 import org.csu.mypetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @RestController
@@ -91,6 +89,7 @@ public class CatalogController {
     public AppResult<String> addProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
         catalogService.insertProduct(product);
+        System.out.println(product.getProductId());
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
@@ -99,6 +98,7 @@ public class CatalogController {
     public AppResult<String> updateProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
         catalogService.updateProduct(product);
+        System.out.println(product.getProductId());
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }

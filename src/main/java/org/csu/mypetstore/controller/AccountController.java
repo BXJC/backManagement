@@ -10,9 +10,6 @@ import org.csu.mypetstore.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Null;
-
 
 //注解，说明这是一个Controller类
 @RestController
@@ -93,8 +90,8 @@ public class AccountController {
 
     @PostMapping(value = "/", produces="application/Json;charset=UTF-8" )
     @ResponseBody
-    public AppResult<Null> insertAccount(@RequestBody Account account ){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> insertAccount(@RequestBody Account account ){
+        AppResult<String> appResult = new AppResult<>();
         account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword ().getBytes()));
         accountService.insertAccount (account);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
