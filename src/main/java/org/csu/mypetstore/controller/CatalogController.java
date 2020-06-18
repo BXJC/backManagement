@@ -88,48 +88,49 @@ public class CatalogController {
     }
 
     @PostMapping(value = "/products", produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> addProduct(@RequestBody Product product){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> addProduct(@RequestBody Product product){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.insertProduct(product);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 
     @PutMapping(value = "/products",produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> updateProduct(@RequestBody Product product){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> updateProduct(@RequestBody Product product){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.updateProduct(product);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 
     @DeleteMapping(value = "/products" ,produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> deleteProduct(@RequestBody Product product){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> deleteProduct(@RequestBody Product product){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.deleteProduct(product);
+        System.out.println(product.getProductId());
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 
     @PostMapping(value = "/items",produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> addItem(@RequestBody Item item){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> addItem(@RequestBody Item item){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.insertItem(item);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 
     @PutMapping(value = "/items", produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> updateItem(@RequestBody Item item){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> updateItem(@RequestBody Item item){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.updateItem(item);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
 
     @DeleteMapping(value = "/items", produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> deleteItem(@RequestBody Item item){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> deleteItem(@RequestBody Item item){
+        AppResult<String> appResult = new AppResult<>();
         catalogService.deleteItem(item);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;

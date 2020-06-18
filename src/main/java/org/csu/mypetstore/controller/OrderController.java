@@ -46,8 +46,8 @@ public class OrderController {
     }
 
     @PatchMapping(value = "/view/{id}",produces = "application/Json;charset=UTF-8")
-    public AppResult<Null> updateOrderStatus(@PathVariable("id") int orderId,@RequestBody Order order){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> updateOrderStatus(@PathVariable("id") int orderId,@RequestBody Order order){
+        AppResult<String> appResult = new AppResult<>();
         orderService.updateOrderStatus(order);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;

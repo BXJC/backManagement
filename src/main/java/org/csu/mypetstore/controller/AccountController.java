@@ -76,15 +76,15 @@ public class AccountController {
 
 
     @PutMapping(value = "/",produces="application/Json;charset=UTF-8")
-    public AppResult<Null> updateAccount(@RequestBody Account account){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> updateAccount(@RequestBody Account account){
+        AppResult<String> appResult = new AppResult<>();
         accountService.updateAccount (account);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
     @PatchMapping(value = "/",produces="application/Json;charset=UTF-8")
-    public AppResult<Null> updatePassword(@RequestBody Account account){
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> updatePassword(@RequestBody Account account){
+        AppResult<String> appResult = new AppResult<>();
         account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
         accountService.updatePassword (account);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
@@ -103,8 +103,8 @@ public class AccountController {
 
 
     @GetMapping( "/sendVCode" )
-    public AppResult<Null> sendVCode(@RequestParam("phone") String phone) throws ClientException {
-        AppResult<Null> appResult = new AppResult<>();
+    public AppResult<String> sendVCode(@RequestParam("phone") String phone) throws ClientException {
+        AppResult<String> appResult = new AppResult<>();
         System.out.println ("手机号"+phone);
         String sms = accountService.sendMsg (phone);
         String msg;

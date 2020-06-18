@@ -10,4 +10,13 @@
     FROM CATEGORY
     WHERE CATID = #{categoryId}
     </select>
+
+    <select id="getCategoryList" resultType="Category">
+        select
+        catId as categoryId,
+        name,
+        descn as description
+        from
+        category
+    </select>
 </mapper>

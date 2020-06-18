@@ -119,4 +119,12 @@
     INSERT INTO ORDERSTATUS (ORDERID, LINENUM, TIMESTAMP, STATUS)
     VALUES (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
   </insert>
+
+    <update id="updateOrderStatus" parameterType="Order">
+        update
+        orderstatus
+        set
+        status = #{status}
+        where orderId = #{orderId}
+    </update>
 </mapper>
