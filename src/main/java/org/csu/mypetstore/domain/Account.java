@@ -1,15 +1,28 @@
 package org.csu.mypetstore.domain;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+
+@Valid
 public class Account {
     private int suppid;
+    @NotNull(message = "用户名不能为空")
     private String username;
     private String password;
+    @NotNull(message = "密码不能为空")
     private String status;
+    @NotNull(message = "请填写地址")
     private String addr1;
     private String addr2;
+    @NotNull(message = "请填写城市信息")
     private String city;
+    @NotNull(message = "请填写州信息")
     private String state;
+    @NotNull(message = "请填写zip信息")
     private String zip;
+    @NotNull(message = "电话号码不能为空")
+    @Digits(message = "请填写正确的电话号码", integer = 11, fraction = 0)
     private String phone;
 
     public String getStatus() {

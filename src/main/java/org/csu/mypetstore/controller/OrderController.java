@@ -3,8 +3,11 @@ package org.csu.mypetstore.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.csu.mypetstore.domain.Account;
+import org.csu.mypetstore.domain.AppResult;
 import org.csu.mypetstore.domain.CartItem;
 import org.csu.mypetstore.domain.Order;
+import org.csu.mypetstore.other.ResultBuilder;
+import org.csu.mypetstore.other.ResultCode;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +29,19 @@ public class OrderController {
     CatalogService catalogService;
 
     @GetMapping(value = "/view", produces = "application/Json;charset=UTF-8")
-    public List<Order> ViewOrders(){
-        return orderService.getOrders();
+    public AppResult<List<Order>> ViewOrders(){
+        AppResult<List<Order>> appResult = new AppResult<>();
+        List<Order> orders = orderService.getOrders();
+        appResult = ResultBuilder.successData(ResultCode.OK,orders);
+        return appResult;
     }
 
     @GetMapping("/view/{id}")
-    public Order viewOrder(@PathVariable("id") int orderId){
-        return orderService.getOrder(orderId);
+    public AppResult<Order> viewOrder(@PathVariable("id") int orderId){
+        AppResult<Order> appResult = new AppResult<>();
+        Order order = orderService.getOrder(orderId);
+        appResult = ResultBuilder.successData(ResultCode.OK,order);
+        return appResult;
     }
 }
 
