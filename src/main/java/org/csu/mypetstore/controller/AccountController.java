@@ -1,8 +1,7 @@
 package org.csu.mypetstore.controller;
 
 import org.csu.mypetstore.domain.AppResult;
-import org.csu.mypetstore.other.ResultBuilder;
-import org.csu.mypetstore.other.ResultCode;
+import org.csu.mypetstore.other.*;
 import org.springframework.util.DigestUtils;
 import com.aliyuncs.exceptions.ClientException;
 import org.csu.mypetstore.domain.Account;
@@ -21,11 +20,11 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-
+    @PassToken
     @PostMapping(value = "/login",produces="application/Json;charset=UTF-8" )
     @ResponseBody
-    public AppResult<Account> Login(@RequestParam("username") String username, @RequestParam("password") String  password) {
-        AppResult<Account> appResult = new AppResult<>();
+    public AppResult<String> Login(@RequestParam("username") String username, @RequestParam("password") String  password) {
+        AppResult<String> appResult = new AppResult<>();
         Account account = accountService.getAccount (username,DigestUtils.md5DigestAsHex(password.getBytes()));
         System.out.println ("接受到请求");
         System.out.println (account);
@@ -35,11 +34,13 @@ public class AccountController {
         }
         else
         {
-            appResult = ResultBuilder.successData(ResultCode.OK,account);
+            String token = JwtUtil.createJWT(username);
+            appResult = ResultBuilder.successData(ResultCode.OK,token);
         }
         return appResult;
     }
 
+    @PassToken
     @GetMapping(value = "/username/{username}",produces="application/Json;charset=UTF-8")
     public AppResult<Account> getAccountByUsername(@PathVariable("username")String username){
         AppResult<Account> appResult = new AppResult<>();
@@ -55,6 +56,7 @@ public class AccountController {
         return appResult;
     }
 
+    @PassToken
     @GetMapping(value = "/phone/{phone}", produces="application/Json;charset=UTF-8" )
     @ResponseBody
     public AppResult<Account> getAccountByPhone(@PathVariable("phone")String phone) {
@@ -71,7 +73,7 @@ public class AccountController {
         return appResult;
     }
 
-
+    @UserLoginToken
     @PutMapping(value = "/",produces="application/Json;charset=UTF-8")
     public AppResult<String> updateAccount(@RequestBody Account account){
         AppResult<String> appResult = new AppResult<>();
@@ -79,6 +81,8 @@ public class AccountController {
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
     }
+
+    @UserLoginToken
     @PatchMapping(value = "/",produces="application/Json;charset=UTF-8")
     public AppResult<String> updatePassword(@RequestBody Account account){
         AppResult<String> appResult = new AppResult<>();
@@ -88,6 +92,7 @@ public class AccountController {
         return appResult;
     }
 
+    @PassToken
     @PostMapping(value = "/", produces="application/Json;charset=UTF-8" )
     @ResponseBody
     public AppResult<String> insertAccount(@RequestBody Account account ){
@@ -98,7 +103,7 @@ public class AccountController {
         return appResult;
     }
 
-
+    @PassToken
     @GetMapping( "/sendVCode" )
     public AppResult<String> sendVCode(@RequestParam("phone") String phone) throws ClientException {
         AppResult<String> appResult = new AppResult<>();

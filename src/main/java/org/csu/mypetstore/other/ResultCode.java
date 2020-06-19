@@ -23,7 +23,8 @@ public enum ResultCode {
     ClassCastEx(10009,"类型强转错误"),
     IOEx(10010,"IO错误"),
     SQLEx(10011,"数据库操作错误"),
-    UnknownEx(10012,"未知错误");
+    UnknownEx(10012,"未知错误"),
+    TokenEx(10013,"token无效");
 
     private int code;
     private String message;

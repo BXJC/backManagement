@@ -6,6 +6,7 @@ import org.csu.mypetstore.domain.AppResult;
 import org.csu.mypetstore.domain.Order;
 import org.csu.mypetstore.other.ResultBuilder;
 import org.csu.mypetstore.other.ResultCode;
+import org.csu.mypetstore.other.UserLoginToken;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class OrderController {
     @Autowired
     CatalogService catalogService;
 
+    @UserLoginToken
     @GetMapping(value = "/view", produces = "application/Json;charset=UTF-8")
     public AppResult<List<Order>> ViewOrders(){
         AppResult<List<Order>> appResult = new AppResult<>();
@@ -29,6 +31,7 @@ public class OrderController {
         return appResult;
     }
 
+    @UserLoginToken
     @GetMapping(value = "/view/{id}",produces = "application/Json;charset=UTF-8")
     public AppResult<Order> viewOrder(@PathVariable("id") int orderId){
         AppResult<Order> appResult = new AppResult<>();
@@ -37,6 +40,7 @@ public class OrderController {
         return appResult;
     }
 
+    @UserLoginToken
     @PatchMapping(value = "/view/{id}",produces = "application/Json;charset=UTF-8")
     public AppResult<String> updateOrderStatus(@PathVariable("id") int orderId,@RequestBody Order order){
         AppResult<String> appResult = new AppResult<>();

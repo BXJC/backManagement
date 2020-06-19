@@ -6,6 +6,7 @@ import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.other.ResultBuilder;
 import org.csu.mypetstore.other.ResultCode;
+import org.csu.mypetstore.other.UserLoginToken;
 import org.csu.mypetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class CatalogController {
     @Autowired
     CatalogService catalogService;
 
+    @UserLoginToken
     @GetMapping(value = "/categories", produces = "application/Json;charset=UTF-8")
     public AppResult<List<Category>> getCategories(){
         AppResult<List<Category>> appResult = new AppResult<>();
@@ -36,6 +38,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @GetMapping(value = "/categories/{catId}/products", produces="application/Json;charset=UTF-8" )
     public AppResult<List<Product>> viewCategory(@PathVariable("catId") String id){
         AppResult<List<Product>> appResult = new AppResult<>();
@@ -51,6 +54,8 @@ public class CatalogController {
         }
         return appResult;
     }
+
+    @UserLoginToken
     @GetMapping(value = "/products/{proId}/items", produces = "application/Json;charset=UTF-8")
     public AppResult<List<Item>> viewProduct(@PathVariable("proId") String id){
         AppResult<List<Item>> appResult = new AppResult<>();
@@ -67,6 +72,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @GetMapping(value = "/items/{id}", produces = "application/Json;charset=UTF-8")
     public AppResult<Item> viewItem(@PathVariable("id") String id){
         AppResult<Item> appResult = new AppResult<>();
@@ -85,6 +91,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @PostMapping(value = "/products", produces = "application/Json;charset=UTF-8")
     public AppResult<String> addProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
@@ -94,6 +101,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @PutMapping(value = "/products",produces = "application/Json;charset=UTF-8")
     public AppResult<String> updateProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
@@ -103,6 +111,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @DeleteMapping(value = "/products" ,produces = "application/Json;charset=UTF-8")
     public AppResult<String> deleteProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
@@ -112,6 +121,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @PostMapping(value = "/items",produces = "application/Json;charset=UTF-8")
     public AppResult<String> addItem(@RequestBody Item item){
         AppResult<String> appResult = new AppResult<>();
@@ -120,6 +130,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @PutMapping(value = "/items", produces = "application/Json;charset=UTF-8")
     public AppResult<String> updateItem(@RequestBody Item item){
         AppResult<String> appResult = new AppResult<>();
@@ -128,6 +139,7 @@ public class CatalogController {
         return appResult;
     }
 
+    @UserLoginToken
     @DeleteMapping(value = "/items", produces = "application/Json;charset=UTF-8")
     public AppResult<String> deleteItem(@RequestBody Item item){
         AppResult<String> appResult = new AppResult<>();

@@ -1,9 +1,17 @@
 package org.csu.mypetstore.domain;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@Valid
 public class Product {
+    @NotNull
     private String productId;
+    @NotNull
     private String categoryId;
+    @NotNull
     private String name;
+    @NotNull
     private String description;
     private String descriptionImage;
     private String descriptionText;
