@@ -15,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin
+@ResponseBody
 public class OrderController {
     @Autowired
     OrderService orderService;

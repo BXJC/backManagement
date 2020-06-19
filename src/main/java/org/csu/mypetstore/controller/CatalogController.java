@@ -15,8 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/catalogs")
 @CrossOrigin
-
-
+@ResponseBody
 public class CatalogController {
 
     @Autowired
@@ -42,7 +41,7 @@ public class CatalogController {
     @GetMapping(value = "/categories/{catId}/products", produces="application/Json;charset=UTF-8" )
     public AppResult<List<Product>> viewCategory(@PathVariable("catId") String id){
         AppResult<List<Product>> appResult = new AppResult<>();
-        Category category=catalogService.getCategory (id);
+//        Category category=catalogService.getCategory (id);
         List<Product> products = catalogService.getProductListByCategory (id);
         if (products.size() == 0)
         {
@@ -59,7 +58,7 @@ public class CatalogController {
     @GetMapping(value = "/products/{proId}/items", produces = "application/Json;charset=UTF-8")
     public AppResult<List<Item>> viewProduct(@PathVariable("proId") String id){
         AppResult<List<Item>> appResult = new AppResult<>();
-        Product product=catalogService.getProduct (id);
+//        Product product=catalogService.getProduct (id);
         List<Item> items = catalogService.getItemListByProduct (id);
         if (items.size() == 0)
         {
@@ -115,6 +114,7 @@ public class CatalogController {
     @DeleteMapping(value = "/products" ,produces = "application/Json;charset=UTF-8")
     public AppResult<String> deleteProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
+        System.out.println(product.getProductId());
         catalogService.deleteProduct(product);
         System.out.println(product.getProductId());
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
@@ -159,6 +159,5 @@ public class CatalogController {
             processProductDescription(product);
         }
     }
-
 }
 

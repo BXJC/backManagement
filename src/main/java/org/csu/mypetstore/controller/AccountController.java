@@ -40,7 +40,7 @@ public class AccountController {
         return appResult;
     }
 
-    @PassToken
+    @UserLoginToken
     @GetMapping(value = "/username/{username}",produces="application/Json;charset=UTF-8")
     public AppResult<Account> getAccountByUsername(@PathVariable("username")String username){
         AppResult<Account> appResult = new AppResult<>();

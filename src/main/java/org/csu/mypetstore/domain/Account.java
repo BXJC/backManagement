@@ -1,7 +1,6 @@
 package org.csu.mypetstore.domain;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 @Valid
@@ -10,11 +9,11 @@ public class Account {
     @NotNull(message = "用户名不能为空")
     private String username;
     private String password;
-    @NotNull(message = "密码不能为空")
+    @NotNull(message = "状态不能为空")
     private String status;
     @NotNull(message = "请填写地址")
-    private String addr1;
-    private String addr2;
+    private String address1;
+    private String address2;
     @NotNull(message = "请填写城市信息")
     private String city;
     @NotNull(message = "请填写州信息")
@@ -22,7 +21,6 @@ public class Account {
     @NotNull(message = "请填写zip信息")
     private String zip;
     @NotNull(message = "电话号码不能为空")
-    @Digits(message = "请填写正确的电话号码", integer = 11, fraction = 0)
     private String phone;
 
     public String getStatus() {
@@ -41,20 +39,20 @@ public class Account {
         this.password = password;
     }
 
-    public String getAddr1() {
-        return addr1;
+    public String getAddress1() {
+        return address1;
     }
 
-    public void setAddr1(String addr1) {
-        this.addr1 = addr1;
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
-    public String getAddr2() {
-        return addr2;
+    public String getAddress2() {
+        return address2;
     }
 
-    public void setAddr2(String addr2) {
-        this.addr2 = addr2;
+    public void setAddress2(String address2) {
+        this.address2 = address2;
     }
 
     public int getSuppid() {
