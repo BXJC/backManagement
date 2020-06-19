@@ -37,9 +37,4 @@ public class JwtUtil {
         return jwt != null;
     }
 
-    public static void main(String[] args) {
-        Item item = new Item();
-        item.setItemId("EST-30");
-        item.setAttribute1("aaa");
-    }
 }
