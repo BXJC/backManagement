@@ -77,6 +77,8 @@ public class AccountController {
     @PutMapping(value = "/",produces="application/Json;charset=UTF-8")
     public AppResult<String> updateAccount(@RequestBody Account account){
         AppResult<String> appResult = new AppResult<>();
+        if(account.getPassword ()!=null){
+      account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));}
         accountService.updateAccount (account);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;
@@ -97,7 +99,9 @@ public class AccountController {
     @ResponseBody
     public AppResult<String> insertAccount(@RequestBody Account account ){
         AppResult<String> appResult = new AppResult<>();
+      System.out.println (account.getPassword());
         account.setPassword (DigestUtils.md5DigestAsHex(account.getPassword ().getBytes()));
+        System.out.println (account.getPassword());
         accountService.insertAccount (account);
         appResult = ResultBuilder.successNoData(ResultCode.Handled);
         return appResult;

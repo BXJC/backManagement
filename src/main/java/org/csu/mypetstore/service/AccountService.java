@@ -38,6 +38,9 @@ public class AccountService {
 
     public void updateAccount(Account account) {
         accountMapper.updateAccount(account);
+        if(account.getPassword ()!=null) {
+          accountMapper.updatePassword (account);
+        }
         System.out.println (account.getCity ());
     }
 
