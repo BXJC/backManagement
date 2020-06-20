@@ -18,6 +18,7 @@ public interface ItemMapper {
     Item getItem(String itemId);
 
     void insertItem(Item item);
+  void insertInv(Item item);
 
     void updateItem(Item item);
 

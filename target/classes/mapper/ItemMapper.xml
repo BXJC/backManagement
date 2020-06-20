@@ -71,6 +71,14 @@
     (#{itemId},#{productId},#{listPrice},#{unitCost},#{supplierId},#{status},#{attribute1},#{attribute2},#{attribute3},#{attribute4},#{attribute5})
   </insert>
 
+  <insert id="insertInv" parameterType="Item">
+     INSERT INTO
+    inventory
+    (itemId,qty)
+    VALUES
+    (#{itemId},#{quantity})
+  </insert>
+
   <update id="updateItem" parameterType="Item">
     update
     ITEM

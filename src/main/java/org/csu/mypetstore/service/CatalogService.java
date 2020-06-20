@@ -50,6 +50,7 @@ public class CatalogService {
 
     public void insertItem(Item item){
         itemMapper.insertItem(item);
+        itemMapper.insertInv (item);
     }
 
     public void updateItem(Item item){
