@@ -57,6 +57,7 @@ public class OrderService {
     }
 
     public void updateOrderStatus(Order order){
+      order.setStatus ("R");
         orderMapper.updateOrderStatus(order);
     }
 }

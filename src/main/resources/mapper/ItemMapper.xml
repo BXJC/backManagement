@@ -68,7 +68,7 @@
     ITEM
     (itemId,productId,listprice,unitcost,supplier,status,attr1,attr2,attr3,attr4,attr5)
     VALUES
-    (#{itemId},#{productId},#{listprice},#{unitcost},#{supplierId},#{status},#{attribute1},#{attribute2},#{attribute3},#{attribute4},#{attribute5})
+    (#{itemId},#{productId},#{listPrice},#{unitCost},#{supplierId},#{status},#{attribute1},#{attribute2},#{attribute3},#{attribute4},#{attribute5})
   </insert>
 
   <update id="updateItem" parameterType="Item">

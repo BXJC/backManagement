@@ -90,7 +90,9 @@ public class CatalogController {
         return appResult;
     }
 
-    @UserLoginToken
+
+
+  @UserLoginToken
     @PostMapping(value = "/products", produces = "application/Json;charset=UTF-8")
     public AppResult<String> addProduct(@RequestBody Product product){
         AppResult<String> appResult = new AppResult<>();
