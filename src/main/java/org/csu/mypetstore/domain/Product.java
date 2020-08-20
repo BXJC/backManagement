@@ -5,13 +5,13 @@ import javax.validation.constraints.NotNull;
 
 @Valid
 public class Product {
-    @NotNull
+    @NotNull(message = "productId不能为空")
     private String productId;
-    @NotNull
+    @NotNull(message = "categoryId不能为空")
     private String categoryId;
-    @NotNull
+    @NotNull(message = "商品名不能为空")
     private String name;
-    @NotNull
+    @NotNull(message = "商品描述不能为空")
     private String description;
     private String descriptionImage;
     private String descriptionText;

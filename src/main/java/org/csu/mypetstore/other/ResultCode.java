@@ -1,5 +1,9 @@
 package org.csu.mypetstore.other;
-
+/***
+*  @Author: zzy
+*  @date: 2020-06-21
+*  @description: 自定义返回码
+***/
 public enum ResultCode {
     OK(200,"请求成功"),
     Created(202,"请求成功且服务器已创建资源"),

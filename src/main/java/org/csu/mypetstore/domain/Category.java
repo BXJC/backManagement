@@ -1,6 +1,11 @@
 package org.csu.mypetstore.domain;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@Valid
 public class Category {
+    @NotNull(message = "categoryId不能为空")
     private String categoryId;
     private String name;
     private String description;

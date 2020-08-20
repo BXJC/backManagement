@@ -10,6 +10,12 @@ import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+*  @Author: zzy
+*  @Date: 2020-06-21
+*  @Description: 全局异常处理
+***/
+
 @ControllerAdvice
 //@RestControllerAdvice
 public class GlobalExceptionAdvice {

@@ -1,5 +1,11 @@
 package org.csu.mypetstore.domain;
 
+/***
+*  @Author: zzy
+*  @date: 2020-6-21
+*  @description: 统一返回格式的定义
+***/
+
 public class AppResult<T> {
     private int code;
     private String message;

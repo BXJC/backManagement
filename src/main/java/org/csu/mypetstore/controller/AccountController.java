@@ -26,8 +26,6 @@ public class AccountController {
     public AppResult<String> Login(@RequestParam("username") String username, @RequestParam("password") String  password) {
         AppResult<String> appResult = new AppResult<>();
         Account account = accountService.getAccount (username,DigestUtils.md5DigestAsHex(password.getBytes()));
-        System.out.println ("接受到请求");
-        System.out.println (account);
         if(account == null)
         {
             appResult = ResultBuilder.fail(ResultCode.UsernameOrPasswordEror);

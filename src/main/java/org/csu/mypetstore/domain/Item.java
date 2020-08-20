@@ -1,14 +1,22 @@
 package org.csu.mypetstore.domain;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-
+@Valid
 public class Item {
+    @NotNull(message = "itemId不能为空")
     private String itemId;
+    @NotNull(message = "productId不能为空")
     private String productId;
+    @NotNull(message = "listPrice不能为空")
     private BigDecimal listPrice;
+    @NotNull(message = "unitCost不能为空")
     private BigDecimal unitCost;
+    @NotNull(message = "supplierId不能为空")
     private int supplierId;
     private String status;
+    @NotNull(message = "至少需要一个属性")
     private String attribute1;
     private String attribute2;
     private String attribute3;

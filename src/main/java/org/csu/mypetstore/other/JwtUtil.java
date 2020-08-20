@@ -12,6 +12,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/***
+*  @Author: zzy
+*  @Date: 2020-06-21
+*  @Description: JWT工具类
+***/
+
 @RestController
 public class JwtUtil {
     private static final long EXPIRE_TIME = 1000 * 60 * 1000;

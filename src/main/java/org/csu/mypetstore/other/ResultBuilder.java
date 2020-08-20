@@ -1,7 +1,11 @@
 package org.csu.mypetstore.other;
 
 import org.csu.mypetstore.domain.AppResult;
-
+/***
+*  @Author: zzy
+*  @date: 2020-06-21
+*  @description: 自定义返回格式生成器
+***/
 public class ResultBuilder {
     public static <T> AppResult<T> successNoData(ResultCode code){
         AppResult<T> result = new AppResult<T>();
