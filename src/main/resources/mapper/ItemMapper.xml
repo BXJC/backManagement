@@ -83,7 +83,7 @@
     update
     ITEM
     SET
-    listprice = #{listprice},
+    listprice = #{listPrice},
     unitcost = #{unitCost},
     status = #{status},
     attr1 = #{attribute1},
